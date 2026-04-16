@@ -1031,12 +1031,23 @@ function paleticketHTML(viaje, i, copyType, scope){
 }
 
 function genQR(elementId, data){
-  if(typeof QRCode === 'undefined'){ console.warn('QRCode library not loaded'); return; }
-  QRCode.toDataURL(data, {width:128, margin:1, errorCorrectionLevel:'M'}, function(err, url){
-    if(err){ console.error('QR error:', err); return; }
-    const el = document.getElementById(elementId);
-    if(el) el.innerHTML = '<img src="'+url+'" alt="QR">';
-  });
+  const el = document.getElementById(elementId);
+  if(!el) return;
+  if(typeof QRCode !== 'undefined'){
+    try{
+      QRCode.toDataURL(data, {width:128, margin:1, errorCorrectionLevel:'M'}, function(err, url){
+        if(!err && url){ el.innerHTML = '<img src="'+url+'" alt="QR">'; return; }
+        genQRFallback(el, data);
+      });
+    }catch(e){ genQRFallback(el, data); }
+  } else {
+    genQRFallback(el, data);
+  }
+}
+function genQRFallback(el, data){
+  // Use Google Charts QR API as fallback
+  const url = 'https://api.qrserver.com/v1/create-qr-code/?size=128x128&margin=2&data='+encodeURIComponent(data);
+  el.innerHTML = '<img src="'+url+'" alt="QR" width="64" height="64">';
 }
 
 function renderPaleticketPreview(viaje, cantidad){
@@ -1058,7 +1069,7 @@ function renderPaleticketPreview(viaje, cantidad){
   // Generate QR codes for preview
   setTimeout(()=>{
     for(let i=1;i<=cantidad;i++){
-      const qrData = `FTP|${viaje.id}|V${viaje.numero_viaje}|${viaje.producto}|P${i}`;
+      const qrData = `FTP-V${viaje.numero_viaje}-P${i}`;
       genQR(`qr-gen-${i}-o`, qrData);
     }
   }, 50);
@@ -1088,7 +1099,7 @@ function preparePrintArea(viaje, cantidad){
   // Generate QR codes for print
   setTimeout(()=>{
     for(let i=1;i<=cantidad;i++){
-      const qrData = `FTP|${viaje.id}|V${viaje.numero_viaje}|${viaje.producto}|P${i}`;
+      const qrData = `FTP-V${viaje.numero_viaje}-P${i}`;
       genQR(`qr-print-${i}-o`, qrData);
       genQR(`qr-print-${i}-c`, qrData);
     }
@@ -1255,17 +1266,39 @@ function stopScanner(){
 
 async function onScanSuccess(decoded){
   stopScanner();
-  // Parse QR: FTP|{viaje_id}|V{numero_viaje}|{producto}|P{numero_palet}
-  const parts = decoded.split('|');
-  if(parts.length<5 || parts[0]!=='FTP'){
+  // Parse QR formats:
+  //  FTP-V{numero_viaje}-P{numero_palet}  (new)
+  //  FTP|{viaje_id}|V{numero_viaje}|{producto}|P{numero_palet}  (legacy)
+  let numViaje = null, paletNum = null, viajeId = null;
+  const mNew = decoded.match(/^FTP-V(\d+)-P(\d+)$/);
+  if(mNew){
+    numViaje = parseInt(mNew[1]);
+    paletNum = parseInt(mNew[2]);
+  } else if(decoded.startsWith('FTP|')){
+    const parts = decoded.split('|');
+    if(parts.length>=5){
+      viajeId = parts[1];
+      numViaje = parseInt(parts[2].replace('V',''));
+      paletNum = parseInt(parts[4].replace('P',''));
+    }
+  }
+  if(paletNum===null){
     document.getElementById('scanResult').style.display='block';
     document.getElementById('scanResult').innerHTML = `<div class="card" style="border-color:var(--red)"><p style="color:var(--red);font-weight:700">QR no valido: ${decoded}</p></div>`;
     return;
   }
-  const viajeId = parts[1];
-  const paletNum = parseInt(parts[4].replace('P',''));
 
   try{
+    // Find viaje by numero_viaje if id not provided (pick most recent)
+    if(!viajeId){
+      const viajes = await sbGet('viajes_mp',`numero_viaje=eq.${numViaje}&order=created_at.desc&limit=1`);
+      if(!viajes.length){
+        document.getElementById('scanResult').style.display='block';
+        document.getElementById('scanResult').innerHTML = `<div class="card" style="border-color:var(--red)"><p style="color:var(--red);font-weight:700">Viaje ${numViaje} no encontrado</p></div>`;
+        return;
+      }
+      viajeId = viajes[0].id;
+    }
     const palets = await sbGet('palets_mp',`viaje_id=eq.${viajeId}&numero_palet=eq.${paletNum}`);
     const viaje_arr = await sbGet('viajes_mp',`id=eq.${viajeId}`);
     if(!palets.length||!viaje_arr.length){
