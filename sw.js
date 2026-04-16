@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mp-ftp-v6';
+const CACHE_NAME = 'mp-ftp-v7';
 const ASSETS = [
   './',
   './index.html',
