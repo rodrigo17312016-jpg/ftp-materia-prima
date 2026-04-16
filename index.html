@@ -98,6 +98,8 @@ body > *{position:relative;z-index:1}
 .lang-btn{background:var(--surface2);border:1px solid var(--border2);border-radius:20px;padding:6px 14px;cursor:pointer;color:var(--text);font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;transition:var(--transition);position:relative;letter-spacing:.5px}
 .lang-btn:hover{border-color:var(--primary);background:var(--primary-dim);transform:translateY(-1px)}
 .lang-btn .flag-icon{font-size:16px;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.2))}
+.flag-img{width:20px;height:14px;object-fit:cover;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.25);vertical-align:middle;display:inline-block}
+.lang-option .flag-img{width:28px;height:20px;border-radius:4px}
 .lang-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:6px;min-width:200px;box-shadow:var(--shadow-lg);z-index:200;display:none;backdrop-filter:blur(20px)}
 .lang-dropdown.show{display:block;animation:dropdownIn .25s cubic-bezier(.4,0,.2,1)}
 .lang-option{padding:10px 14px;border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:12px;font-size:13px;font-weight:500;transition:var(--transition-fast)}
@@ -406,16 +408,16 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     <span class="sb-status" id="sb-status"><span class="sb-dot load"></span><span>Conectando...</span></span>
     <div style="position:relative">
       <button class="lang-btn" id="langBtn" onclick="toggleLangDropdown()">
-        <span id="langFlag"><span class="flag-icon">🇪🇸</span> ES</span>
+        <span id="langFlag"><img class="flag-img" src="https://flagcdn.com/w40/es.png" alt="ES"> ES</span>
         <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4"/></svg>
       </button>
       <div class="lang-dropdown" id="langDropdown">
-        <div class="lang-option active" data-lang="es" onclick="setLang('es')"><span class="flag-icon">🇪🇸</span><span class="lang-name">Español</span><span class="lang-code">ES</span></div>
-        <div class="lang-option" data-lang="nl" onclick="setLang('nl')"><span class="flag-icon">🇳🇱</span><span class="lang-name">Nederlands</span><span class="lang-code">NL</span></div>
-        <div class="lang-option" data-lang="pt" onclick="setLang('pt')"><span class="flag-icon">🇵🇹</span><span class="lang-name">Português</span><span class="lang-code">PT</span></div>
-        <div class="lang-option" data-lang="en" onclick="setLang('en')"><span class="flag-icon">🇬🇧</span><span class="lang-name">English</span><span class="lang-code">EN</span></div>
-        <div class="lang-option" data-lang="ja" onclick="setLang('ja')"><span class="flag-icon">🇯🇵</span><span class="lang-name">日本語</span><span class="lang-code">JA</span></div>
-        <div class="lang-option" data-lang="zh" onclick="setLang('zh')"><span class="flag-icon">🇨🇳</span><span class="lang-name">中文</span><span class="lang-code">ZH</span></div>
+        <div class="lang-option active" data-lang="es" onclick="setLang('es')"><img class="flag-img" src="https://flagcdn.com/w40/es.png" alt="ES"><span class="lang-name">Español</span><span class="lang-code">ES</span></div>
+        <div class="lang-option" data-lang="nl" onclick="setLang('nl')"><img class="flag-img" src="https://flagcdn.com/w40/nl.png" alt="NL"><span class="lang-name">Nederlands</span><span class="lang-code">NL</span></div>
+        <div class="lang-option" data-lang="pt" onclick="setLang('pt')"><img class="flag-img" src="https://flagcdn.com/w40/pt.png" alt="PT"><span class="lang-name">Português</span><span class="lang-code">PT</span></div>
+        <div class="lang-option" data-lang="en" onclick="setLang('en')"><img class="flag-img" src="https://flagcdn.com/w40/gb.png" alt="EN"><span class="lang-name">English</span><span class="lang-code">EN</span></div>
+        <div class="lang-option" data-lang="ja" onclick="setLang('ja')"><img class="flag-img" src="https://flagcdn.com/w40/jp.png" alt="JA"><span class="lang-name">日本語</span><span class="lang-code">JA</span></div>
+        <div class="lang-option" data-lang="zh" onclick="setLang('zh')"><img class="flag-img" src="https://flagcdn.com/w40/cn.png" alt="ZH"><span class="lang-name">中文</span><span class="lang-code">ZH</span></div>
       </div>
     </div>
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Cambiar tema">
@@ -900,8 +902,9 @@ function setLang(lang){
   currentLang = lang;
   localStorage.setItem('mp_lang', lang);
   document.querySelectorAll('.lang-option').forEach(o=>o.classList.toggle('active',o.dataset.lang===lang));
-  const flagMap = {es:'🇪🇸',nl:'🇳🇱',pt:'🇵🇹',en:'🇬🇧',ja:'🇯🇵',zh:'🇨🇳'};
-  document.getElementById('langFlag').innerHTML = `<span class="flag-icon">${flagMap[lang]||'🌐'}</span> ${lang.toUpperCase()}`;
+  const flagCodeMap = {es:'es',nl:'nl',pt:'pt',en:'gb',ja:'jp',zh:'cn'};
+  const flagCode = flagCodeMap[lang] || 'es';
+  document.getElementById('langFlag').innerHTML = `<img class="flag-img" src="https://flagcdn.com/w40/${flagCode}.png" alt="${lang}"> ${lang.toUpperCase()}`;
   document.getElementById('langDropdown').classList.remove('show');
   applyI18n();
   // Re-render scan result if visible (keeps it in sync with language)
