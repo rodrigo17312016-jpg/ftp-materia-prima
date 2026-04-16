@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Materia Prima · Frutos Tropicales</title>
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f97316">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MP FTP">
+<link rel="apple-touch-icon" href="logo.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg:#0b1121;--surface:#111c30;--surface2:#162035;--surface3:#1b2740;
+  --border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.1);
+  --primary:#f97316;--primary-dim:rgba(249,115,22,.15);--primary-glow:rgba(249,115,22,.3);
+  --green:#22c55e;--green-dim:rgba(34,197,94,.12);
+  --blue:#3b82f6;--blue-dim:rgba(59,130,246,.12);
+  --red:#ef4444;--red-dim:rgba(239,68,68,.12);
+  --amber:#f59e0b;--amber-dim:rgba(245,158,11,.12);
+  --purple:#a855f7;--purple-dim:rgba(168,85,247,.12);
+  --cyan:#06b6d4;--cyan-dim:rgba(6,182,212,.12);
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;
+  --radius:12px;--radius-lg:16px;--radius-sm:8px;
+  --shadow:0 4px 24px rgba(0,0,0,.3);
+  --shadow-lg:0 8px 40px rgba(0,0,0,.4);
+  --transition:all .25s cubic-bezier(.4,0,.2,1);
+}
+body.light{
+  --bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;--surface3:#f1f5f9;
+  --border:rgba(0,0,0,.06);--border2:rgba(0,0,0,.1);
+  --primary:#ea580c;--primary-dim:rgba(234,88,12,.08);--primary-glow:rgba(234,88,12,.15);
+  --green:#16a34a;--green-dim:rgba(22,163,74,.08);
+  --blue:#2563eb;--blue-dim:rgba(37,99,235,.08);
+  --red:#dc2626;--red-dim:rgba(220,38,38,.08);
+  --amber:#d97706;--amber-dim:rgba(217,119,6,.08);
+  --text:#0f172a;--text2:#475569;--text3:#94a3b8;
+  --shadow:0 4px 24px rgba(0,0,0,.08);
+  --shadow-lg:0 8px 40px rgba(0,0,0,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
+a{color:var(--primary);text-decoration:none}
+input,select,textarea,button{font-family:inherit;font-size:inherit}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--text3);border-radius:3px}
+
+/* HEADER */
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px)}
+.header-logo{display:flex;align-items:center;gap:10px}
+.header-logo img{height:40px;border-radius:8px}
+.header-center{text-align:center}
+.header-title{font-size:18px;font-weight:800;letter-spacing:.5px;background:linear-gradient(135deg,#f97316,#fb923c,#f59e0b,#f97316);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s ease infinite}
+@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.header-sub{font-size:10px;color:var(--text3);font-weight:500;letter-spacing:1px;text-transform:uppercase}
+.header-right{display:flex;align-items:center;gap:8px}
+.sb-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px}
+.sb-dot.ok{background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.5)}
+.sb-dot.err{background:#ef4444;box-shadow:0 0 8px rgba(239,68,68,.5)}
+.sb-dot.load{background:#f59e0b;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* LANGUAGE SELECTOR */
+.lang-btn{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:6px 10px;cursor:pointer;color:var(--text);font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px;transition:var(--transition);position:relative}
+.lang-btn:hover{border-color:var(--primary);background:var(--primary-dim)}
+.lang-dropdown{position:absolute;top:calc(100% + 4px);right:0;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:4px;min-width:160px;box-shadow:var(--shadow-lg);z-index:200;display:none}
+.lang-dropdown.show{display:block;animation:fadeIn .2s}
+.lang-option{padding:8px 12px;border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;gap:8px;font-size:13px;transition:var(--transition)}
+.lang-option:hover{background:var(--primary-dim)}
+.lang-option.active{background:var(--primary-dim);color:var(--primary);font-weight:600}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+
+/* THEME TOGGLE */
+.theme-btn{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:var(--transition);color:var(--text)}
+.theme-btn:hover{border-color:var(--primary);background:var(--primary-dim)}
+
+/* NAV TABS */
+.nav{display:flex;gap:2px;padding:8px 16px;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav-tab{padding:8px 16px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;color:var(--text3);cursor:pointer;white-space:nowrap;transition:var(--transition);display:flex;align-items:center;gap:6px;border:none;background:none;letter-spacing:.3px}
+.nav-tab:hover{color:var(--text);background:var(--surface2)}
+.nav-tab.active{color:var(--primary);background:var(--primary-dim)}
+.nav-tab svg{width:16px;height:16px}
+
+/* MAIN CONTENT */
+.main{padding:16px;max-width:1400px;margin:0 auto}
+.tab-panel{display:none;animation:fadePanel .3s}
+.tab-panel.active{display:block}
+@keyframes fadePanel{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;transition:var(--transition)}
+.card:hover{border-color:var(--border2)}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.card-title{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card-title svg{width:20px;height:20px;color:var(--primary)}
+.card-grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+
+/* KPI CARDS */
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;transition:var(--transition)}
+.kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.kpi-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:20px}
+.kpi-value{font-size:28px;font-weight:800;font-family:'JetBrains Mono',monospace;line-height:1}
+.kpi-label{font-size:11px;color:var(--text3);margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+
+/* FORMS */
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.form-input,.form-select{width:100%;padding:10px 14px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-size:14px;transition:var(--transition);outline:none}
+.form-input:focus,.form-select:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-dim)}
+.form-input::placeholder{color:var(--text3)}
+.form-row{display:grid;gap:12px}
+.form-row-2{grid-template-columns:1fr 1fr}
+.form-row-3{grid-template-columns:1fr 1fr 1fr}
+.form-row-4{grid-template-columns:1fr 1fr 1fr 1fr}
+textarea.form-input{resize:vertical;min-height:60px}
+
+/* RADIO & CHECK */
+.radio-group{display:flex;gap:8px;flex-wrap:wrap}
+.radio-opt{padding:8px 16px;border-radius:var(--radius-sm);border:1px solid var(--border2);cursor:pointer;font-size:13px;font-weight:600;transition:var(--transition);display:flex;align-items:center;gap:6px}
+.radio-opt:hover{border-color:var(--primary)}
+.radio-opt.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.radio-opt input{display:none}
+
+/* BUTTONS */
+.btn{padding:10px 20px;border-radius:var(--radius-sm);font-weight:700;font-size:13px;cursor:pointer;border:none;transition:var(--transition);display:inline-flex;align-items:center;gap:8px;letter-spacing:.3px}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{filter:brightness(1.1);box-shadow:0 4px 16px var(--primary-glow)}
+.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+.btn-secondary:hover{border-color:var(--primary);color:var(--primary)}
+.btn-success{background:var(--green);color:#fff}
+.btn-success:hover{filter:brightness(1.1)}
+.btn-danger{background:var(--red);color:#fff}
+.btn-danger:hover{filter:brightness(1.1)}
+.btn-sm{padding:6px 12px;font-size:11px}
+.btn-lg{padding:14px 28px;font-size:15px}
+.btn-block{width:100%;justify-content:center}
+.btn[disabled]{opacity:.5;cursor:not-allowed;pointer-events:none}
+
+/* TABLES */
+.table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border)}
+.table{width:100%;border-collapse:collapse;font-size:13px}
+.table th{background:var(--surface2);padding:10px 12px;text-align:left;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);border-bottom:1px solid var(--border);white-space:nowrap}
+.table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.table tr:last-child td{border-bottom:none}
+.table tr:hover td{background:var(--surface2)}
+.table .mono{font-family:'JetBrains Mono',monospace;font-size:12px}
+.table .total-row td{font-weight:800;background:var(--primary-dim);color:var(--primary)}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.badge-orange{background:var(--primary-dim);color:var(--primary)}
+.badge-green{background:var(--green-dim);color:var(--green)}
+.badge-blue{background:var(--blue-dim);color:var(--blue)}
+.badge-red{background:var(--red-dim);color:var(--red)}
+.badge-amber{background:var(--amber-dim);color:var(--amber)}
+.badge-purple{background:var(--purple-dim);color:var(--purple)}
+
+/* PROGRESS */
+.progress{height:6px;background:var(--surface3);border-radius:3px;overflow:hidden}
+.progress-bar{height:100%;border-radius:3px;transition:width .5s}
+.progress-bar.orange{background:linear-gradient(90deg,#f97316,#fb923c)}
+.progress-bar.green{background:linear-gradient(90deg,#22c55e,#4ade80)}
+
+/* TOAST */
+.toast-container{position:fixed;top:80px;right:16px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{padding:12px 20px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;animation:slideIn .3s;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg);max-width:360px}
+.toast.success{background:#166534;color:#bbf7d0;border:1px solid #22c55e}
+.toast.error{background:#7f1d1d;color:#fecaca;border:1px solid #ef4444}
+.toast.info{background:#1e3a5f;color:#bfdbfe;border:1px solid #3b82f6}
+@keyframes slideIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+
+/* MODAL */
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px);animation:fadeIn .2s}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:24px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:var(--shadow-lg)}
+.modal-title{font-size:18px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
+
+/* EMPTY STATE */
+.empty{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty svg{width:64px;height:64px;margin-bottom:16px;opacity:.4}
+.empty-title{font-size:16px;font-weight:700;color:var(--text2);margin-bottom:8px}
+.empty-desc{font-size:13px}
+
+/* PALETICKET PRINT */
+.paleticket-card{background:#fff;border:2px solid #333;border-radius:4px;padding:10px;color:#000;font-family:Arial,sans-serif;font-size:11px;break-inside:avoid;page-break-inside:avoid;width:100%;height:100%}
+.paleticket-card .pt-header{display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #333;padding-bottom:6px;margin-bottom:6px}
+.paleticket-card .pt-logo{height:30px}
+.paleticket-card .pt-title{font-size:13px;font-weight:900;text-align:center;flex:1}
+.paleticket-card .pt-body{display:grid;grid-template-columns:1fr auto;gap:6px}
+.paleticket-card .pt-fields{display:grid;gap:3px}
+.paleticket-card .pt-field{display:flex;gap:4px;font-size:10px}
+.paleticket-card .pt-field b{white-space:nowrap}
+.paleticket-card .pt-right{text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
+.paleticket-card .pt-number{font-size:28px;font-weight:900;color:#f97316}
+.paleticket-card .pt-qr canvas{border:1px solid #ccc}
+.paleticket-card .pt-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:10px}
+.paleticket-card .pt-table th,.paleticket-card .pt-table td{border:1px solid #666;padding:4px 6px;text-align:center}
+.paleticket-card .pt-table th{background:#f0f0f0;font-weight:700;font-size:9px}
+.paleticket-card .pt-footer{display:flex;justify-content:space-between;margin-top:4px;font-size:8px;color:#666;border-top:1px solid #ccc;padding-top:3px}
+.paleticket-card .pt-producto{display:flex;gap:8px;font-size:10px;font-weight:700;margin-bottom:4px}
+.paleticket-card .pt-producto .check{display:inline-flex;align-items:center;gap:2px}
+.paleticket-card .pt-producto .box{width:12px;height:12px;border:1.5px solid #333;display:inline-block}
+.paleticket-card .pt-producto .box.checked{background:#f97316;border-color:#f97316}
+.paleticket-card .pt-madurez{border:1px solid #333;padding:4px;min-height:30px;font-size:10px;margin-top:4px}
+.paleticket-card .pt-madurez-title{font-size:9px;font-weight:700;text-align:center;background:#eee;padding:2px;border-bottom:1px solid #333;margin:-4px -4px 3px;text-transform:uppercase}
+
+/* SCANNER */
+#scanner-video{width:100%;max-width:500px;border-radius:var(--radius);overflow:hidden;border:2px solid var(--primary)}
+.scan-result{background:var(--surface2);border:1px solid var(--green);border-radius:var(--radius);padding:20px;margin-top:16px}
+
+/* CHART */
+.chart-container{position:relative;width:100%;max-height:300px}
+.chart-container canvas{width:100%!important}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:1fr 1fr}
+  .form-row-4{grid-template-columns:1fr 1fr}
+  .form-row-3{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .header{grid-template-columns:auto 1fr auto;padding:8px 12px;gap:8px}
+  .header-title{font-size:14px}
+  .header-sub{display:none}
+  .header-logo img{height:32px}
+  .nav{padding:6px 8px;gap:1px}
+  .nav-tab{padding:6px 10px;font-size:11px}
+  .nav-tab span.tab-text{display:none}
+  .main{padding:10px}
+  .card{padding:14px}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .form-row-2,.form-row-3,.form-row-4{grid-template-columns:1fr}
+  .modal{padding:16px;margin:8px}
+  .kpi-value{font-size:22px}
+  .table{font-size:11px}
+  .table th,.table td{padding:6px 8px}
+  .btn-lg{padding:12px 20px;font-size:13px}
+}
+
+/* PRINT STYLES */
+@media print{
+  body{background:#fff!important;color:#000!important}
+  .header,.nav,.toast-container,.no-print{display:none!important}
+  .main{padding:0!important;max-width:100%!important}
+  .tab-panel{display:none!important}
+  #print-area{display:block!important}
+  .print-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:4mm}
+  .paleticket-card{border:1.5px solid #000}
+  @page{size:A4 landscape;margin:4mm}
+}
+#print-area{display:none}
+
+/* REPORT PRINT */
+.report-print{font-family:Arial,sans-serif;color:#000;background:#fff;padding:20px}
+.report-print .rp-header{display:grid;grid-template-columns:auto 1fr auto;align-items:center;border:2px solid #333;margin-bottom:0}
+.report-print .rp-header img{height:50px;padding:8px}
+.report-print .rp-header h1{font-size:20px;text-align:center;padding:8px;border-left:2px solid #333;border-right:2px solid #333}
+.report-print .rp-header .rp-meta{font-size:10px;padding:8px;line-height:1.6}
+.report-print .rp-info{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid #333;border-top:none;padding:12px 16px;font-size:13px}
+.report-print .rp-info div{padding:3px 0}
+.report-print table{width:100%;border-collapse:collapse;border:2px solid #333;border-top:none}
+.report-print table th{background:#f0f0f0;padding:8px;border:1px solid #333;font-size:11px;text-transform:uppercase}
+.report-print table td{padding:6px 8px;border:1px solid #ccc;font-size:12px;text-align:center}
+.report-print .rp-totals td{font-weight:900;background:#fff3e0;font-size:13px;border:2px solid #333}
+.report-print .rp-signatures{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:40px;padding:0 40px}
+.report-print .rp-sig{text-align:center;border-top:1px solid #333;padding-top:8px;font-size:12px}
+.report-print .rp-footer{text-align:center;font-size:10px;font-weight:700;border:2px solid #333;padding:8px;margin-top:20px}
+
+/* LOADING */
+.spinner{width:24px;height:24px;border:3px solid var(--border2);border-top-color:var(--primary);border-radius:50%;animation:spin .6s linear infinite;margin:0 auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.skeleton{background:linear-gradient(90deg,var(--surface2) 25%,var(--surface3) 50%,var(--surface2) 75%);background-size:200%;animation:skeleton 1.5s infinite;border-radius:var(--radius-sm);height:20px}
+@keyframes skeleton{0%{background-position:200%}100%{background-position:-200%}}
+
+/* PRODUCT COLORS */
+.prod-mango{color:#f97316}.prod-palta{color:#22c55e}.prod-fresa{color:#ef4444}.prod-otros{color:#3b82f6}
+.bg-mango{background:#f97316}.bg-palta{background:#22c55e}.bg-fresa{background:#ef4444}.bg-otros{background:#3b82f6}
+</style>
+</head>
+<body>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toasts"></div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-logo">
+    <img src="logo.png" alt="FTP" onerror="this.style.display='none'">
+  </div>
+  <div class="header-center">
+    <div class="header-title" data-i18n="appTitle">MATERIA PRIMA</div>
+    <div class="header-sub" data-i18n="appSub">Frutos Tropicales Peru Export S.A.C · Huaura</div>
+  </div>
+  <div class="header-right">
+    <span id="sb-status"><span class="sb-dot load"></span><span style="font-size:10px;color:var(--text3)">...</span></span>
+    <div style="position:relative">
+      <button class="lang-btn" id="langBtn" onclick="toggleLangDropdown()">
+        <span id="langFlag">ES</span>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg>
+      </button>
+      <div class="lang-dropdown" id="langDropdown">
+        <div class="lang-option active" data-lang="es" onclick="setLang('es')">ES &nbsp;Espanol</div>
+        <div class="lang-option" data-lang="nl" onclick="setLang('nl')">NL &nbsp;Nederlands</div>
+        <div class="lang-option" data-lang="pt" onclick="setLang('pt')">PT &nbsp;Portugues</div>
+        <div class="lang-option" data-lang="en" onclick="setLang('en')">EN &nbsp;English</div>
+        <div class="lang-option" data-lang="ja" onclick="setLang('ja')">JA &nbsp;Japanese</div>
+        <div class="lang-option" data-lang="zh" onclick="setLang('zh')">ZH &nbsp;Chinese</div>
+      </div>
+    </div>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">M</button>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav" id="mainNav">
+  <button class="nav-tab active" data-tab="home" onclick="showTab('home')">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+    <span class="tab-text" data-i18n="navHome">Inicio</span>
+  </button>
+  <button class="nav-tab" data-tab="generator" onclick="showTab('generator')">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+    <span class="tab-text" data-i18n="navGen">Generador</span>
+  </button>
+  <button class="nav-tab" data-tab="registro" onclick="showTab('registro')">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+    <span class="tab-text" data-i18n="navReg">Registro</span>
+  </button>
+  <button class="nav-tab" data-tab="scanner" onclick="showTab('scanner')">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7V4h3M20 7V4h-3M4 17v3h3M20 17v3h-3M7 10h10M7 14h10"/></svg>
+    <span class="tab-text" data-i18n="navScan">Escaner</span>
+  </button>
+  <button class="nav-tab" data-tab="reporte" onclick="showTab('reporte')">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+    <span class="tab-text" data-i18n="navReport">Reporte</span>
+  </button>
+  <button class="nav-tab" data-tab="dashboard" onclick="showTab('dashboard')">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+    <span class="tab-text" data-i18n="navDash">Dashboard</span>
+  </button>
+</div>
+
+<!-- ====== TAB: HOME ====== -->
+<div class="main">
+<div class="tab-panel active" id="tab-home">
+  <div class="card-grid grid-4" id="homeKpis" style="margin-bottom:16px">
+    <div class="kpi"><div class="kpi-icon" style="background:var(--primary-dim);color:var(--primary)">T</div><div class="kpi-value" id="kpiViajes">-</div><div class="kpi-label" data-i18n="kpiTrips">Viajes Totales</div></div>
+    <div class="kpi"><div class="kpi-icon" style="background:var(--green-dim);color:var(--green)">P</div><div class="kpi-value" id="kpiPalets">-</div><div class="kpi-label" data-i18n="kpiPalets">Palets Registrados</div></div>
+    <div class="kpi"><div class="kpi-icon" style="background:var(--blue-dim);color:var(--blue)">K</div><div class="kpi-value" id="kpiPeso">-</div><div class="kpi-label" data-i18n="kpiWeight">Kg Neto Total</div></div>
+    <div class="kpi"><div class="kpi-icon" style="background:var(--amber-dim);color:var(--amber)">J</div><div class="kpi-value" id="kpiJabas">-</div><div class="kpi-label" data-i18n="kpiCrates">Jabas Totales</div></div>
+  </div>
+  <div class="card-grid grid-2">
+    <div class="card">
+      <div class="card-header"><div class="card-title" data-i18n="homeQuick">Acciones Rapidas</div></div>
+      <div style="display:grid;gap:10px">
+        <button class="btn btn-primary btn-block btn-lg" onclick="showTab('generator')" data-i18n="homeNewTrip">Nuevo Viaje + Paletickets</button>
+        <button class="btn btn-success btn-block" onclick="showTab('registro')" data-i18n="homeRegData">Registrar Datos de Palets</button>
+        <button class="btn btn-secondary btn-block" onclick="showTab('scanner')" data-i18n="homeScanQR">Escanear Codigo QR</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title" data-i18n="homeRecent">Viajes Recientes</div></div>
+      <div id="homeRecent"><div class="empty"><div class="empty-title" data-i18n="loading">Cargando...</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== TAB: GENERATOR ====== -->
+<div class="tab-panel" id="tab-generator">
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-header">
+      <div class="card-title">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        <span data-i18n="genTitle">Generar Paletickets</span>
+      </div>
+    </div>
+    <div class="form-row form-row-3" style="margin-bottom:14px">
+      <div class="form-group">
+        <label class="form-label" data-i18n="product">Producto</label>
+        <div class="radio-group" id="genProducto">
+          <label class="radio-opt active" onclick="selectRadio(this,'genProducto')"><input type="radio" name="genProd" value="MANGO" checked>MANGO</label>
+          <label class="radio-opt" onclick="selectRadio(this,'genProducto')"><input type="radio" name="genProd" value="PALTA">PALTA</label>
+          <label class="radio-opt" onclick="selectRadio(this,'genProducto')"><input type="radio" name="genProd" value="FRESA">FRESA</label>
+          <label class="radio-opt" onclick="selectRadio(this,'genProducto')"><input type="radio" name="genProd" value="OTROS">OTROS</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="variety">Variedad</label>
+        <input type="text" class="form-input" id="genVariedad" placeholder="Kent, Hass, etc.">
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="type">Tipo</label>
+        <div class="radio-group" id="genTipo">
+          <label class="radio-opt active" onclick="selectRadio(this,'genTipo')"><input type="radio" name="genTipo" value="ORGANICO" checked>ORGANICO</label>
+          <label class="radio-opt" onclick="selectRadio(this,'genTipo')"><input type="radio" name="genTipo" value="CONVENCIONAL">CONVENCIONAL</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-row form-row-4" style="margin-bottom:14px">
+      <div class="form-group">
+        <label class="form-label" data-i18n="tripNum">N. Viaje</label>
+        <input type="number" class="form-input" id="genViaje" min="1" placeholder="001">
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="entryDate">Fecha Ingreso</label>
+        <input type="date" class="form-input" id="genFecha">
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="julianDate">Juliano Ingreso</label>
+        <input type="text" class="form-input" id="genJuliano" placeholder="106">
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="guideNum">N. Guia</label>
+        <input type="text" class="form-input" id="genGuia" placeholder="">
+      </div>
+    </div>
+    <div class="form-row form-row-3" style="margin-bottom:14px">
+      <div class="form-group">
+        <label class="form-label" data-i18n="supplier">Proveedor</label>
+        <input type="text" class="form-input" id="genProveedor" placeholder="">
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="shift">Turno</label>
+        <select class="form-select" id="genTurno">
+          <option value="DIA">DIA</option>
+          <option value="NOCHE">NOCHE</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="numPalets">Cantidad de Palets (1-50)</label>
+        <div style="display:flex;align-items:center;gap:10px">
+          <input type="range" id="genCantidad" min="1" max="50" value="30" style="flex:1" oninput="document.getElementById('genCantVal').textContent=this.value">
+          <span id="genCantVal" style="font-family:'JetBrains Mono';font-size:20px;font-weight:800;color:var(--primary);min-width:36px;text-align:center">30</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end">
+      <button class="btn btn-primary btn-lg" onclick="generarPaletickets()" data-i18n="generate">Generar Paletickets</button>
+    </div>
+  </div>
+  <div id="genPreview"></div>
+</div>
+
+<!-- ====== TAB: REGISTRO ====== -->
+<div class="tab-panel" id="tab-registro">
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-header">
+      <div class="card-title">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+        <span data-i18n="regTitle">Registro de Datos</span>
+      </div>
+    </div>
+    <div class="form-row form-row-2" style="margin-bottom:14px">
+      <div class="form-group">
+        <label class="form-label" data-i18n="selectTrip">Seleccionar Viaje</label>
+        <select class="form-select" id="regViajeSelect" onchange="loadPaletsForViaje()">
+          <option value="" data-i18n="selTrip">-- Seleccione un viaje --</option>
+        </select>
+      </div>
+      <div class="form-group" style="display:flex;align-items:flex-end;gap:8px">
+        <button class="btn btn-secondary" onclick="loadViajes()" data-i18n="refresh">Actualizar</button>
+        <div id="regProgress" style="flex:1;display:none">
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px"><span data-i18n="progress">Progreso</span>: <span id="regProgText">0/0</span></div>
+          <div class="progress"><div class="progress-bar orange" id="regProgBar" style="width:0%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="regPaletsList"></div>
+</div>
+
+<!-- ====== TAB: SCANNER ====== -->
+<div class="tab-panel" id="tab-scanner">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M4 7V4h3M20 7V4h-3M4 17v3h3M20 17v3h-3M7 10h10M7 14h10"/></svg>
+        <span data-i18n="scanTitle">Escanear Codigo QR</span>
+      </div>
+      <div>
+        <button class="btn btn-primary btn-sm" id="scanStartBtn" onclick="startScanner()" data-i18n="startScan">Iniciar Camara</button>
+        <button class="btn btn-danger btn-sm" id="scanStopBtn" onclick="stopScanner()" style="display:none" data-i18n="stopScan">Detener</button>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <div id="scanner-reader" style="max-width:500px;margin:0 auto"></div>
+      <p style="margin-top:12px;color:var(--text3);font-size:13px" data-i18n="scanHint">Apunte la camara al codigo QR del paleticket</p>
+    </div>
+    <div id="scanResult" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ====== TAB: REPORTE ====== -->
+<div class="tab-panel" id="tab-reporte">
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-header">
+      <div class="card-title">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <span data-i18n="repTitle">Reporte de Recepcion</span>
+      </div>
+    </div>
+    <div class="form-row form-row-3">
+      <div class="form-group">
+        <label class="form-label" data-i18n="selectTrip">Seleccionar Viaje</label>
+        <select class="form-select" id="repViajeSelect" onchange="loadReport()">
+          <option value="" data-i18n="selTrip">-- Seleccione un viaje --</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="supervisor">Supervisor de Produccion</label>
+        <input type="text" class="form-input" id="repSupervisor" placeholder="">
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="coordinator">Coordinador de Operaciones</label>
+        <input type="text" class="form-input" id="repCoordinador" placeholder="">
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px">
+      <button class="btn btn-secondary" onclick="saveReport()" data-i18n="saveReport">Guardar Reporte</button>
+      <button class="btn btn-primary" onclick="printReport()" data-i18n="printReport">Imprimir / PDF</button>
+    </div>
+  </div>
+  <div id="reportPreview"></div>
+</div>
+
+<!-- ====== TAB: DASHBOARD ====== -->
+<div class="tab-panel" id="tab-dashboard">
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-header">
+      <div class="card-title" data-i18n="dashTitle">Dashboard Analitico</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input type="date" class="form-input" id="dashFrom" style="width:auto;padding:6px 10px;font-size:12px">
+        <span style="color:var(--text3)">-</span>
+        <input type="date" class="form-input" id="dashTo" style="width:auto;padding:6px 10px;font-size:12px">
+        <button class="btn btn-primary btn-sm" onclick="loadDashboard()" data-i18n="filter">Filtrar</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-grid grid-4" style="margin-bottom:16px" id="dashKpis">
+    <div class="kpi"><div class="kpi-icon" style="background:var(--primary-dim);color:var(--primary)">V</div><div class="kpi-value" id="dkViajes">0</div><div class="kpi-label" data-i18n="kpiTrips">Viajes</div></div>
+    <div class="kpi"><div class="kpi-icon" style="background:var(--green-dim);color:var(--green)">P</div><div class="kpi-value" id="dkPalets">0</div><div class="kpi-label" data-i18n="kpiPalets">Palets</div></div>
+    <div class="kpi"><div class="kpi-icon" style="background:var(--blue-dim);color:var(--blue)">Kg</div><div class="kpi-value" id="dkPeso">0</div><div class="kpi-label" data-i18n="kpiWeightNet">Peso Neto (Kg)</div></div>
+    <div class="kpi"><div class="kpi-icon" style="background:var(--amber-dim);color:var(--amber)">Av</div><div class="kpi-value" id="dkAvg">0</div><div class="kpi-label" data-i18n="kpiAvg">Promedio Kg/Palet</div></div>
+  </div>
+  <div class="card-grid grid-2" style="margin-bottom:16px">
+    <div class="card"><div class="card-header"><div class="card-title" data-i18n="chartProduct">Ingreso por Producto</div></div><div class="chart-container"><canvas id="chartProducto"></canvas></div></div>
+    <div class="card"><div class="card-header"><div class="card-title" data-i18n="chartDaily">Peso Neto Diario</div></div><div class="chart-container"><canvas id="chartDiario"></canvas></div></div>
+  </div>
+  <div class="card-grid grid-2" style="margin-bottom:16px">
+    <div class="card"><div class="card-header"><div class="card-title" data-i18n="chartType">Tipo: Organico vs Convencional</div></div><div class="chart-container"><canvas id="chartTipo"></canvas></div></div>
+    <div class="card"><div class="card-header"><div class="card-title" data-i18n="chartSupplier">Top Proveedores</div></div><div class="chart-container"><canvas id="chartProveedor"></canvas></div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title" data-i18n="dashTable">Detalle de Viajes</div></div>
+    <div class="table-wrap"><table class="table" id="dashTable"><thead><tr>
+      <th data-i18n="tripNum">N. Viaje</th><th data-i18n="product">Producto</th><th data-i18n="variety">Variedad</th>
+      <th data-i18n="type">Tipo</th><th data-i18n="entryDate">Fecha</th><th data-i18n="supplier">Proveedor</th>
+      <th>Palets</th><th data-i18n="kpiWeightNet">Peso Neto</th><th data-i18n="status">Estado</th>
+    </tr></thead><tbody id="dashTableBody"></tbody></table></div>
+  </div>
+</div>
+</div>
+
+<!-- PRINT AREA (hidden) -->
+<div id="print-area"></div>
+
+<!-- PALET EDIT MODAL -->
+<div id="modalOverlay" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="paletModal">
+    <div class="modal-title">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:22px;height:22px;color:var(--primary)"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+      <span data-i18n="editPalet">Editar Palet</span> #<span id="modalPaletNum"></span>
+    </div>
+    <div class="form-row form-row-2">
+      <div class="form-group"><label class="form-label">Lote</label><input type="text" class="form-input" id="modLote"></div>
+      <div class="form-group"><label class="form-label" data-i18n="traceCode">Cod. Trazabilidad</label><input type="text" class="form-input" id="modCodTraz"></div>
+    </div>
+    <div class="form-row form-row-3">
+      <div class="form-group"><label class="form-label" data-i18n="transferDate">Fecha Traslado</label><input type="date" class="form-input" id="modFechaTraslado"></div>
+      <div class="form-group"><label class="form-label" data-i18n="time">Hora</label><input type="time" class="form-input" id="modHora"></div>
+      <div class="form-group"><label class="form-label" data-i18n="ripDate">F. Maduracion</label><input type="date" class="form-input" id="modFechaMad"></div>
+    </div>
+    <div class="form-row form-row-4">
+      <div class="form-group"><label class="form-label" data-i18n="crates">N. Jabas</label><input type="number" class="form-input" id="modJabas" min="0" oninput="calcPesoNeto()"></div>
+      <div class="form-group"><label class="form-label" data-i18n="grossWeight">Peso Bruto</label><input type="number" class="form-input" id="modBruto" step="0.01" min="0" oninput="calcPesoNeto()"></div>
+      <div class="form-group"><label class="form-label" data-i18n="palletWeight">Peso Palet</label><input type="number" class="form-input" id="modPalet" step="0.01" min="0" oninput="calcPesoNeto()"></div>
+      <div class="form-group"><label class="form-label" data-i18n="netWeight">Peso Neto</label><input type="number" class="form-input" id="modNeto" step="0.01" style="font-weight:800;color:var(--primary)" readonly></div>
+    </div>
+    <div class="form-row form-row-2">
+      <div class="form-group"><label class="form-label" data-i18n="ripDest">Madurez / Destino</label><input type="text" class="form-input" id="modMadurez"></div>
+      <div class="form-group"><label class="form-label" data-i18n="observations">Observaciones</label><input type="text" class="form-input" id="modObs"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal()" data-i18n="cancel">Cancelar</button>
+      <button class="btn btn-primary" onclick="savePalet()" data-i18n="save">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- CDN LIBRARIES -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+<script>
+// ============================================================
+//  CONFIG
+// ============================================================
+const SB_URL = 'https://obnvrfvcujsrmifvlqni.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ibnZyZnZjdWpzcm1pZnZscW5pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MDY3OTUsImV4cCI6MjA4OTA4Mjc5NX0.A7BilSrDzqe2rqz1Kh8fg5t-GVNxrLGYJK4IaMlVtBs';
+const HEADERS = {'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'};
+const HEADERS_GET = {'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY};
+
+// ============================================================
+//  I18N — Internationalization
+// ============================================================
+let currentLang = localStorage.getItem('mp_lang') || 'es';
+const T = {
+es:{
+  appTitle:'MATERIA PRIMA',appSub:'Frutos Tropicales Peru Export S.A.C · Huaura',
+  navHome:'Inicio',navGen:'Generador',navReg:'Registro',navScan:'Escaner',navReport:'Reporte',navDash:'Dashboard',
+  kpiTrips:'Viajes Totales',kpiPalets:'Palets Registrados',kpiWeight:'Kg Neto Total',kpiCrates:'Jabas Totales',kpiWeightNet:'Peso Neto (Kg)',kpiAvg:'Promedio Kg/Palet',
+  homeQuick:'Acciones Rapidas',homeNewTrip:'Nuevo Viaje + Paletickets',homeRegData:'Registrar Datos de Palets',homeScanQR:'Escanear Codigo QR',homeRecent:'Viajes Recientes',
+  genTitle:'Generar Paletickets',product:'Producto',variety:'Variedad',type:'Tipo',tripNum:'N. Viaje',entryDate:'Fecha Ingreso',julianDate:'Juliano Ingreso',guideNum:'N. Guia',supplier:'Proveedor',shift:'Turno',numPalets:'Cantidad de Palets (1-50)',generate:'Generar Paletickets',
+  regTitle:'Registro de Datos',selectTrip:'Seleccionar Viaje',selTrip:'-- Seleccione un viaje --',refresh:'Actualizar',progress:'Progreso',
+  scanTitle:'Escanear Codigo QR',startScan:'Iniciar Camara',stopScan:'Detener',scanHint:'Apunte la camara al codigo QR del paleticket',
+  repTitle:'Reporte de Recepcion',supervisor:'Supervisor de Produccion',coordinator:'Coordinador de Operaciones',saveReport:'Guardar Reporte',printReport:'Imprimir / PDF',
+  dashTitle:'Dashboard Analitico',filter:'Filtrar',chartProduct:'Ingreso por Producto',chartDaily:'Peso Neto Diario',chartType:'Tipo: Organico vs Convencional',chartSupplier:'Top Proveedores',dashTable:'Detalle de Viajes',
+  editPalet:'Editar Palet',traceCode:'Cod. Trazabilidad',transferDate:'Fecha Traslado',time:'Hora',ripDate:'F. Maduracion',crates:'N. Jabas',grossWeight:'Peso Bruto',palletWeight:'Peso Palet',netWeight:'Peso Neto',ripDest:'Madurez / Destino',observations:'Observaciones',cancel:'Cancelar',save:'Guardar',
+  loading:'Cargando...',noData:'Sin datos',status:'Estado',registered:'Registrado',pending:'Pendiente',printPT:'Imprimir Paletickets',total:'TOTALES',
+  tripCreated:'Viaje creado exitosamente',paletSaved:'Palet guardado exitosamente',reportSaved:'Reporte guardado',errorGeneric:'Error en la operacion',
+  scanFound:'Palet encontrado',scanNotFound:'Palet no encontrado',goToReg:'Ir a Registro',
+  repDocTitle:'REPORTE DE RECEPCION DE MATERIA PRIMA',repCode:'Codigo',repVersion:'Version',repDate:'Fecha',
+  day:'DIA',night:'NOCHE',organic:'ORGANICO',conventional:'CONVENCIONAL',
+  ptTitle:'PALETICKET DE MATERIA PRIMA',ptConfidential:'Confidencial: Prohibido reproducir total o parcialmente sin autorizacion del G.G.',ptVersion:'Version 01',ptData:'DATOS',ptObs:'OBSERVACIONES',
+  repFooter:'DOCUMENTO CONTROLADO PROHIBIDA SU REPRODUCCION SIN AUTORIZACION DE FRUTOS TROPICALES PERU EXPORT S.A.C',
+  sigSupervisor:'Supervisor de Produccion',sigCoordinator:'Coordinador de Operaciones',sigName:'Apellidos y Nombres'
+},
+nl:{
+  appTitle:'GRONDSTOFFEN',appSub:'Frutos Tropicales Peru Export S.A.C · Huaura',
+  navHome:'Start',navGen:'Generator',navReg:'Registratie',navScan:'Scanner',navReport:'Rapport',navDash:'Dashboard',
+  kpiTrips:'Totaal Ritten',kpiPalets:'Geregistreerde Pallets',kpiWeight:'Totaal Netto Kg',kpiCrates:'Totaal Kratten',kpiWeightNet:'Netto Gewicht (Kg)',kpiAvg:'Gemiddeld Kg/Pallet',
+  homeQuick:'Snelle Acties',homeNewTrip:'Nieuwe Rit + Pallettickets',homeRegData:'Palletgegevens Registreren',homeScanQR:'QR-code Scannen',homeRecent:'Recente Ritten',
+  genTitle:'Pallettickets Genereren',product:'Product',variety:'Variëteit',type:'Type',tripNum:'Ritnr.',entryDate:'Ontvangstdatum',julianDate:'Juliaans Nr.',guideNum:'Gidsnr.',supplier:'Leverancier',shift:'Dienst',numPalets:'Aantal Pallets (1-50)',generate:'Genereer Pallettickets',
+  regTitle:'Gegevens Registreren',selectTrip:'Selecteer Rit',selTrip:'-- Selecteer een rit --',refresh:'Vernieuwen',progress:'Voortgang',
+  scanTitle:'QR-code Scannen',startScan:'Camera Starten',stopScan:'Stoppen',scanHint:'Richt de camera op de QR-code van het palletticket',
+  repTitle:'Ontvangstrapport',supervisor:'Productie Supervisor',coordinator:'Operatie Coördinator',saveReport:'Rapport Opslaan',printReport:'Afdrukken / PDF',
+  dashTitle:'Analytisch Dashboard',filter:'Filteren',chartProduct:'Ontvangst per Product',chartDaily:'Dagelijks Netto Gewicht',chartType:'Type: Biologisch vs Conventioneel',chartSupplier:'Top Leveranciers',dashTable:'Ritdetails',
+  editPalet:'Pallet Bewerken',traceCode:'Traceerbaarheidscode',transferDate:'Overdrachtsdatum',time:'Tijd',ripDate:'Rijpingsdatum',crates:'Kratten',grossWeight:'Bruto Gewicht',palletWeight:'Pallet Gewicht',netWeight:'Netto Gewicht',ripDest:'Rijpheid / Bestemming',observations:'Opmerkingen',cancel:'Annuleren',save:'Opslaan',
+  loading:'Laden...',noData:'Geen gegevens',status:'Status',registered:'Geregistreerd',pending:'In afwachting',printPT:'Pallettickets Afdrukken',total:'TOTALEN',
+  tripCreated:'Rit succesvol aangemaakt',paletSaved:'Pallet succesvol opgeslagen',reportSaved:'Rapport opgeslagen',errorGeneric:'Fout bij bewerking',
+  scanFound:'Pallet gevonden',scanNotFound:'Pallet niet gevonden',goToReg:'Ga naar Registratie',
+  repDocTitle:'GRONDSTOF ONTVANGSTRAPPORT',repCode:'Code',repVersion:'Versie',repDate:'Datum',
+  day:'DAG',night:'NACHT',organic:'BIOLOGISCH',conventional:'CONVENTIONEEL',
+  ptTitle:'GRONDSTOF PALLETTICKET',ptConfidential:'Vertrouwelijk: Reproductie verboden zonder toestemming.',ptVersion:'Versie 01',ptData:'GEGEVENS',ptObs:'OPMERKINGEN',
+  repFooter:'GECONTROLEERD DOCUMENT - REPRODUCTIE VERBODEN ZONDER TOESTEMMING VAN FRUTOS TROPICALES PERU EXPORT S.A.C',
+  sigSupervisor:'Productie Supervisor',sigCoordinator:'Operatie Coördinator',sigName:'Achternaam en Naam'
+},
+pt:{
+  appTitle:'MATERIA PRIMA',appSub:'Frutos Tropicales Peru Export S.A.C · Huaura',
+  navHome:'Inicio',navGen:'Gerador',navReg:'Registro',navScan:'Scanner',navReport:'Relatorio',navDash:'Dashboard',
+  kpiTrips:'Viagens Totais',kpiPalets:'Paletes Registrados',kpiWeight:'Kg Liquido Total',kpiCrates:'Caixas Totais',kpiWeightNet:'Peso Liquido (Kg)',kpiAvg:'Media Kg/Palete',
+  homeQuick:'Acoes Rapidas',homeNewTrip:'Nova Viagem + Paletickets',homeRegData:'Registrar Dados de Paletes',homeScanQR:'Escanear Codigo QR',homeRecent:'Viagens Recentes',
+  genTitle:'Gerar Paletickets',product:'Produto',variety:'Variedade',type:'Tipo',tripNum:'N. Viagem',entryDate:'Data Entrada',julianDate:'Juliano Entrada',guideNum:'N. Guia',supplier:'Fornecedor',shift:'Turno',numPalets:'Quantidade de Paletes (1-50)',generate:'Gerar Paletickets',
+  regTitle:'Registro de Dados',selectTrip:'Selecionar Viagem',selTrip:'-- Selecione uma viagem --',refresh:'Atualizar',progress:'Progresso',
+  scanTitle:'Escanear Codigo QR',startScan:'Iniciar Camera',stopScan:'Parar',scanHint:'Aponte a camera para o codigo QR do paleticket',
+  repTitle:'Relatorio de Recepcao',supervisor:'Supervisor de Producao',coordinator:'Coordenador de Operacoes',saveReport:'Salvar Relatorio',printReport:'Imprimir / PDF',
+  dashTitle:'Dashboard Analitico',filter:'Filtrar',chartProduct:'Entrada por Produto',chartDaily:'Peso Liquido Diario',chartType:'Tipo: Organico vs Convencional',chartSupplier:'Top Fornecedores',dashTable:'Detalhe de Viagens',
+  editPalet:'Editar Palete',traceCode:'Cod. Rastreabilidade',transferDate:'Data Transferencia',time:'Hora',ripDate:'Data Maturacao',crates:'Caixas',grossWeight:'Peso Bruto',palletWeight:'Peso Palete',netWeight:'Peso Liquido',ripDest:'Maturidade / Destino',observations:'Observacoes',cancel:'Cancelar',save:'Salvar',
+  loading:'Carregando...',noData:'Sem dados',status:'Status',registered:'Registrado',pending:'Pendente',printPT:'Imprimir Paletickets',total:'TOTAIS',
+  tripCreated:'Viagem criada com sucesso',paletSaved:'Palete salvo com sucesso',reportSaved:'Relatorio salvo',errorGeneric:'Erro na operacao',
+  scanFound:'Palete encontrado',scanNotFound:'Palete nao encontrado',goToReg:'Ir ao Registro',
+  repDocTitle:'RELATORIO DE RECEPCAO DE MATERIA PRIMA',repCode:'Codigo',repVersion:'Versao',repDate:'Data',
+  day:'DIA',night:'NOITE',organic:'ORGANICO',conventional:'CONVENCIONAL',
+  ptTitle:'PALETICKET DE MATERIA PRIMA',ptConfidential:'Confidencial: Reproducao proibida sem autorizacao.',ptVersion:'Versao 01',ptData:'DADOS',ptObs:'OBSERVACOES',
+  repFooter:'DOCUMENTO CONTROLADO PROIBIDA SUA REPRODUCAO SEM AUTORIZACAO DE FRUTOS TROPICALES PERU EXPORT S.A.C',
+  sigSupervisor:'Supervisor de Producao',sigCoordinator:'Coordenador de Operacoes',sigName:'Sobrenome e Nome'
+},
+en:{
+  appTitle:'RAW MATERIALS',appSub:'Frutos Tropicales Peru Export S.A.C · Huaura',
+  navHome:'Home',navGen:'Generator',navReg:'Register',navScan:'Scanner',navReport:'Report',navDash:'Dashboard',
+  kpiTrips:'Total Trips',kpiPalets:'Registered Pallets',kpiWeight:'Total Net Kg',kpiCrates:'Total Crates',kpiWeightNet:'Net Weight (Kg)',kpiAvg:'Avg Kg/Pallet',
+  homeQuick:'Quick Actions',homeNewTrip:'New Trip + Pallet Tickets',homeRegData:'Register Pallet Data',homeScanQR:'Scan QR Code',homeRecent:'Recent Trips',
+  genTitle:'Generate Pallet Tickets',product:'Product',variety:'Variety',type:'Type',tripNum:'Trip No.',entryDate:'Entry Date',julianDate:'Julian Date',guideNum:'Guide No.',supplier:'Supplier',shift:'Shift',numPalets:'Number of Pallets (1-50)',generate:'Generate Pallet Tickets',
+  regTitle:'Data Registration',selectTrip:'Select Trip',selTrip:'-- Select a trip --',refresh:'Refresh',progress:'Progress',
+  scanTitle:'Scan QR Code',startScan:'Start Camera',stopScan:'Stop',scanHint:'Point the camera at the pallet ticket QR code',
+  repTitle:'Reception Report',supervisor:'Production Supervisor',coordinator:'Operations Coordinator',saveReport:'Save Report',printReport:'Print / PDF',
+  dashTitle:'Analytics Dashboard',filter:'Filter',chartProduct:'Intake by Product',chartDaily:'Daily Net Weight',chartType:'Type: Organic vs Conventional',chartSupplier:'Top Suppliers',dashTable:'Trip Details',
+  editPalet:'Edit Pallet',traceCode:'Traceability Code',transferDate:'Transfer Date',time:'Time',ripDate:'Ripening Date',crates:'Crates',grossWeight:'Gross Weight',palletWeight:'Pallet Weight',netWeight:'Net Weight',ripDest:'Ripeness / Destination',observations:'Observations',cancel:'Cancel',save:'Save',
+  loading:'Loading...',noData:'No data',status:'Status',registered:'Registered',pending:'Pending',printPT:'Print Pallet Tickets',total:'TOTALS',
+  tripCreated:'Trip created successfully',paletSaved:'Pallet saved successfully',reportSaved:'Report saved',errorGeneric:'Operation error',
+  scanFound:'Pallet found',scanNotFound:'Pallet not found',goToReg:'Go to Register',
+  repDocTitle:'RAW MATERIAL RECEPTION REPORT',repCode:'Code',repVersion:'Version',repDate:'Date',
+  day:'DAY',night:'NIGHT',organic:'ORGANIC',conventional:'CONVENTIONAL',
+  ptTitle:'RAW MATERIAL PALLET TICKET',ptConfidential:'Confidential: Reproduction prohibited without authorization.',ptVersion:'Version 01',ptData:'DATA',ptObs:'OBSERVATIONS',
+  repFooter:'CONTROLLED DOCUMENT - REPRODUCTION PROHIBITED WITHOUT AUTHORIZATION FROM FRUTOS TROPICALES PERU EXPORT S.A.C',
+  sigSupervisor:'Production Supervisor',sigCoordinator:'Operations Coordinator',sigName:'Last Name and First Name'
+},
+ja:{
+  appTitle:'原材料',appSub:'Frutos Tropicales Peru Export S.A.C · Huaura',
+  navHome:'ホーム',navGen:'生成',navReg:'登録',navScan:'スキャナー',navReport:'レポート',navDash:'ダッシュボード',
+  kpiTrips:'総便数',kpiPalets:'登録パレット',kpiWeight:'総正味重量Kg',kpiCrates:'総クレート',kpiWeightNet:'正味重量(Kg)',kpiAvg:'平均Kg/パレット',
+  homeQuick:'クイックアクション',homeNewTrip:'新規便+パレットチケット',homeRegData:'パレットデータ登録',homeScanQR:'QRコードスキャン',homeRecent:'最近の便',
+  genTitle:'パレットチケット生成',product:'製品',variety:'品種',type:'タイプ',tripNum:'便番号',entryDate:'入荷日',julianDate:'ユリウス日',guideNum:'ガイド番号',supplier:'サプライヤー',shift:'シフト',numPalets:'パレット数 (1-50)',generate:'パレットチケット生成',
+  regTitle:'データ登録',selectTrip:'便を選択',selTrip:'-- 便を選択 --',refresh:'更新',progress:'進捗',
+  scanTitle:'QRコードスキャン',startScan:'カメラ開始',stopScan:'停止',scanHint:'パレットチケットのQRコードにカメラを向けてください',
+  repTitle:'受入レポート',supervisor:'生産監督者',coordinator:'オペレーションコーディネーター',saveReport:'レポート保存',printReport:'印刷 / PDF',
+  dashTitle:'分析ダッシュボード',filter:'フィルター',chartProduct:'製品別入荷',chartDaily:'日別正味重量',chartType:'タイプ：有機 vs 慣行',chartSupplier:'トップサプライヤー',dashTable:'便詳細',
+  editPalet:'パレット編集',traceCode:'トレーサビリティコード',transferDate:'移送日',time:'時間',ripDate:'熟成日',crates:'クレート',grossWeight:'総重量',palletWeight:'パレット重量',netWeight:'正味重量',ripDest:'熟度/仕向地',observations:'備考',cancel:'キャンセル',save:'保存',
+  loading:'読み込み中...',noData:'データなし',status:'ステータス',registered:'登録済',pending:'未登録',printPT:'パレットチケット印刷',total:'合計',
+  tripCreated:'便が正常に作成されました',paletSaved:'パレットが正常に保存されました',reportSaved:'レポート保存済み',errorGeneric:'操作エラー',
+  scanFound:'パレットが見つかりました',scanNotFound:'パレットが見つかりません',goToReg:'登録へ',
+  repDocTitle:'原材料受入レポート',repCode:'コード',repVersion:'バージョン',repDate:'日付',
+  day:'日勤',night:'夜勤',organic:'有機',conventional:'慣行',
+  ptTitle:'原材料パレットチケット',ptConfidential:'機密：許可なき複製を禁ず',ptVersion:'バージョン01',ptData:'データ',ptObs:'備考',
+  repFooter:'管理文書 - FRUTOS TROPICALES PERU EXPORT S.A.C の許可なく複製を禁じます',
+  sigSupervisor:'生産監督者',sigCoordinator:'オペレーションコーディネーター',sigName:'氏名'
+},
+zh:{
+  appTitle:'原材料',appSub:'Frutos Tropicales Peru Export S.A.C · Huaura',
+  navHome:'首页',navGen:'生成器',navReg:'登记',navScan:'扫描',navReport:'报告',navDash:'仪表板',
+  kpiTrips:'总行程',kpiPalets:'已登记托盘',kpiWeight:'总净重Kg',kpiCrates:'总箱数',kpiWeightNet:'净重(Kg)',kpiAvg:'平均Kg/托盘',
+  homeQuick:'快捷操作',homeNewTrip:'新行程+托盘票',homeRegData:'登记托盘数据',homeScanQR:'扫描二维码',homeRecent:'最近行程',
+  genTitle:'生成托盘票',product:'产品',variety:'品种',type:'类型',tripNum:'行程号',entryDate:'入库日期',julianDate:'儒略日',guideNum:'指南号',supplier:'供应商',shift:'班次',numPalets:'托盘数量 (1-50)',generate:'生成托盘票',
+  regTitle:'数据登记',selectTrip:'选择行程',selTrip:'-- 选择行程 --',refresh:'刷新',progress:'进度',
+  scanTitle:'扫描二维码',startScan:'启动相机',stopScan:'停止',scanHint:'将相机对准托盘票上的二维码',
+  repTitle:'接收报告',supervisor:'生产主管',coordinator:'运营协调员',saveReport:'保存报告',printReport:'打印 / PDF',
+  dashTitle:'分析仪表板',filter:'筛选',chartProduct:'按产品入库',chartDaily:'每日净重',chartType:'类型：有机 vs 常规',chartSupplier:'顶级供应商',dashTable:'行程详情',
+  editPalet:'编辑托盘',traceCode:'追溯代码',transferDate:'转移日期',time:'时间',ripDate:'成熟日期',crates:'箱数',grossWeight:'毛重',palletWeight:'托盘重',netWeight:'净重',ripDest:'成熟度/目的地',observations:'备注',cancel:'取消',save:'保存',
+  loading:'加载中...',noData:'无数据',status:'状态',registered:'已登记',pending:'待处理',printPT:'打印托盘票',total:'合计',
+  tripCreated:'行程创建成功',paletSaved:'托盘保存成功',reportSaved:'报告已保存',errorGeneric:'操作错误',
+  scanFound:'找到托盘',scanNotFound:'未找到托盘',goToReg:'前往登记',
+  repDocTitle:'原材料接收报告',repCode:'代码',repVersion:'版本',repDate:'日期',
+  day:'白班',night:'夜班',organic:'有机',conventional:'常规',
+  ptTitle:'原材料托盘票',ptConfidential:'机密：未经授权禁止复制',ptVersion:'版本01',ptData:'数据',ptObs:'备注',
+  repFooter:'受控文件 - 未经FRUTOS TROPICALES PERU EXPORT S.A.C授权禁止复制',
+  sigSupervisor:'生产主管',sigCoordinator:'运营协调员',sigName:'姓名'
+}
+};
+
+function t(key){ return (T[currentLang]&&T[currentLang][key]) || (T['es'][key]) || key; }
+
+function applyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    const v = t(k);
+    if(v) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    el.placeholder = t(el.getAttribute('data-i18n-ph'));
+  });
+}
+
+function setLang(lang){
+  currentLang = lang;
+  localStorage.setItem('mp_lang', lang);
+  document.querySelectorAll('.lang-option').forEach(o=>o.classList.toggle('active',o.dataset.lang===lang));
+  document.getElementById('langFlag').textContent = lang.toUpperCase();
+  document.getElementById('langDropdown').classList.remove('show');
+  applyI18n();
+}
+
+function toggleLangDropdown(){
+  document.getElementById('langDropdown').classList.toggle('show');
+}
+
+// ============================================================
+//  STATE
+// ============================================================
+let viajes = [];
+let currentPalets = [];
+let editingPaletId = null;
+let html5QrCode = null;
+let charts = {producto:null,diario:null,tipo:null,proveedor:null};
+
+// ============================================================
+//  UTILITIES
+// ============================================================
+function toast(msg,type='success'){
+  const c = document.getElementById('toasts');
+  const d = document.createElement('div');
+  d.className = 'toast '+type;
+  d.innerHTML = (type==='success'?'&#10003;':type==='error'?'&#10007;':'&#9432;')+' '+msg;
+  c.appendChild(d);
+  setTimeout(()=>d.remove(),4000);
+}
+
+function formatNum(n){return n!=null?Number(n).toLocaleString('es-PE',{minimumFractionDigits:0,maximumFractionDigits:2}):'-';}
+function formatDate(d){if(!d)return'-';const p=new Date(d+'T12:00:00');return p.toLocaleDateString('es-PE');}
+function today(){return new Date().toISOString().split('T')[0];}
+function prodColor(p){return p==='MANGO'?'orange':p==='PALTA'?'green':p==='FRESA'?'red':'blue';}
+function prodBadge(p){return `<span class="badge badge-${prodColor(p)}">${p}</span>`;}
+
+// ============================================================
+//  SUPABASE API
+// ============================================================
+async function sbGet(table, query=''){
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?${query}`,{headers:HEADERS_GET});
+  if(!r.ok) throw new Error(r.statusText);
+  return r.json();
+}
+async function sbPost(table, data){
+  const r = await fetch(`${SB_URL}/rest/v1/${table}`,{method:'POST',headers:HEADERS,body:JSON.stringify(data)});
+  if(!r.ok){ const e = await r.text(); throw new Error(e); }
+  return r.json();
+}
+async function sbPatch(table, id, data){
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?id=eq.${id}`,{method:'PATCH',headers:HEADERS,body:JSON.stringify(data)});
+  if(!r.ok) throw new Error(r.statusText);
+  return r.json();
+}
+async function sbDelete(table, id){
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?id=eq.${id}`,{method:'DELETE',headers:{...HEADERS_GET,'Prefer':'return=minimal'}});
+  if(!r.ok) throw new Error(r.statusText);
+}
+
+async function checkConnection(){
+  const el = document.getElementById('sb-status');
+  try{
+    const r = await fetch(`${SB_URL}/rest/v1/viajes_mp?limit=1`,{headers:HEADERS_GET});
+    if(r.ok){
+      el.innerHTML = '<span class="sb-dot ok"></span><span style="font-size:10px;color:var(--green)">Online</span>';
+    } else throw new Error();
+  }catch(e){
+    el.innerHTML = '<span class="sb-dot err"></span><span style="font-size:10px;color:var(--red)">Offline</span>';
+  }
+}
+
+// ============================================================
+//  NAVIGATION
+// ============================================================
+function showTab(tab){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.querySelector(`.nav-tab[data-tab="${tab}"]`).classList.add('active');
+  if(tab==='home') loadHome();
+  if(tab==='registro') loadViajes();
+  if(tab==='reporte') loadViajes('rep');
+  if(tab==='dashboard') loadDashboard();
+}
+
+function toggleTheme(){
+  document.body.classList.toggle('light');
+  const isLight = document.body.classList.contains('light');
+  localStorage.setItem('mp_theme', isLight?'light':'dark');
+  document.getElementById('themeBtn').textContent = isLight?'D':'M';
+}
+
+// ============================================================
+//  HOME
+// ============================================================
+async function loadHome(){
+  try{
+    const [vj, pl] = await Promise.all([
+      sbGet('viajes_mp','select=*&order=created_at.desc'),
+      sbGet('palets_mp','select=id,peso_neto,num_jabas,registrado')
+    ]);
+    viajes = vj;
+    document.getElementById('kpiViajes').textContent = vj.length;
+    const registered = pl.filter(p=>p.registrado);
+    document.getElementById('kpiPalets').textContent = registered.length;
+    document.getElementById('kpiPeso').textContent = formatNum(pl.reduce((s,p)=>s+(+p.peso_neto||0),0));
+    document.getElementById('kpiJabas').textContent = formatNum(pl.reduce((s,p)=>s+(+p.num_jabas||0),0));
+    // Recent trips
+    const recent = vj.slice(0,6);
+    const container = document.getElementById('homeRecent');
+    if(!recent.length){
+      container.innerHTML = `<div class="empty"><div class="empty-title">${t('noData')}</div></div>`;
+      return;
+    }
+    container.innerHTML = recent.map(v=>`
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:10px">
+          ${prodBadge(v.producto)}
+          <div>
+            <div style="font-weight:700;font-size:13px">${t('tripNum')} ${v.numero_viaje}</div>
+            <div style="font-size:11px;color:var(--text3)">${v.proveedor||'-'} · ${formatDate(v.fecha_ingreso)}</div>
+          </div>
+        </div>
+        <span class="badge badge-green">${v.total_palets} palets</span>
+      </div>
+    `).join('');
+  }catch(e){ console.error(e); }
+}
+
+// ============================================================
+//  GENERATOR — Create Trip + Paletickets
+// ============================================================
+async function generarPaletickets(){
+  const producto = document.querySelector('#genProducto .radio-opt.active input').value;
+  const variedad = document.getElementById('genVariedad').value;
+  const tipo = document.querySelector('#genTipo .radio-opt.active input').value;
+  const numero_viaje = parseInt(document.getElementById('genViaje').value);
+  const fecha_ingreso = document.getElementById('genFecha').value;
+  const juliano_ingreso = document.getElementById('genJuliano').value;
+  const num_guia = document.getElementById('genGuia').value;
+  const proveedor = document.getElementById('genProveedor').value;
+  const turno = document.getElementById('genTurno').value;
+  const cantidad = parseInt(document.getElementById('genCantidad').value);
+
+  if(!numero_viaje||!fecha_ingreso){
+    toast(t('errorGeneric')+': Complete N. Viaje y Fecha','error');
+    return;
+  }
+
+  try{
+    // Create viaje
+    const [viaje] = await sbPost('viajes_mp',[{
+      numero_viaje, producto, variedad, tipo, fecha_ingreso, juliano_ingreso,
+      num_guia, proveedor, turno, total_palets: cantidad
+    }]);
+
+    // Create palets
+    const paletsData = [];
+    for(let i=1; i<=cantidad; i++){
+      paletsData.push({
+        viaje_id: viaje.id,
+        numero_palet: i,
+        qr_data: JSON.stringify({v:numero_viaje,p:producto,n:i,id:viaje.id})
+      });
+    }
+    await sbPost('palets_mp', paletsData);
+
+    toast(t('tripCreated'));
+
+    // Render preview
+    renderPaleticketPreview(viaje, cantidad);
+  }catch(e){
+    console.error(e);
+    toast(t('errorGeneric'),'error');
+  }
+}
+
+function renderPaleticketPreview(viaje, cantidad){
+  const container = document.getElementById('genPreview');
+  let html = `
+    <div class="card" style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div class="card-title">${prodBadge(viaje.producto)} ${t('tripNum')} ${viaje.numero_viaje} — ${cantidad} Paletickets</div>
+        <button class="btn btn-primary" onclick="printPaletickets()" data-i18n="printPT">${t('printPT')}</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px">
+  `;
+  for(let i=1;i<=cantidad;i++){
+    const qrId = 'qr-gen-'+i;
+    html += `
+      <div class="paleticket-card" id="pt-card-${i}">
+        <div class="pt-header">
+          <img src="logo.png" class="pt-logo" onerror="this.style.display='none'">
+          <div class="pt-title">${t('ptTitle')}</div>
+        </div>
+        <div class="pt-producto">
+          <span class="check"><span class="box ${viaje.producto==='MANGO'?'checked':''}"></span> MANGO</span>
+          <span class="check"><span class="box ${viaje.producto==='PALTA'?'checked':''}"></span> PALTA</span>
+          <span class="check"><span class="box ${viaje.producto==='FRESA'?'checked':''}"></span> FRESA</span>
+          <span class="check"><span class="box ${viaje.producto==='OTROS'?'checked':''}"></span> OTROS</span>
+        </div>
+        <div class="pt-body">
+          <div class="pt-fields">
+            <div class="pt-field"><b>${t('tripNum')}:</b> ${viaje.numero_viaje}</div>
+            <div class="pt-field"><b>${t('type')}:</b> ${viaje.tipo||''}</div>
+            <div class="pt-field"><b>${t('variety')}:</b> ${viaje.variedad||''}</div>
+            <div class="pt-field"><b>${t('entryDate')}:</b> ${formatDate(viaje.fecha_ingreso)}</div>
+            <div class="pt-field"><b>${t('julianDate')}:</b> ${viaje.juliano_ingreso||''}</div>
+            <div class="pt-field"><b>${t('supplier')}:</b> ${viaje.proveedor||''}</div>
+          </div>
+          <div class="pt-right">
+            <div style="font-size:9px;font-weight:700">N. PALET</div>
+            <div class="pt-number">${String(i).padStart(2,'0')}</div>
+            <div class="pt-qr" id="${qrId}"></div>
+          </div>
+        </div>
+        <table class="pt-table">
+          <tr><th>${t('crates')}</th><th>${t('grossWeight')}</th><th>${t('palletWeight')}</th><th>${t('netWeight')}</th></tr>
+          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        </table>
+        <div class="pt-madurez"><div class="pt-madurez-title">${t('ripDest')}</div>&nbsp;</div>
+        <div class="pt-footer">
+          <span>FTP.PDG.FRT.13.003</span>
+          <span>${t('ptVersion')}</span>
+        </div>
+      </div>
+    `;
+  }
+  html += '</div></div>';
+  container.innerHTML = html;
+
+  // Generate QR codes
+  for(let i=1;i<=cantidad;i++){
+    const qrData = `FTP|${viaje.id}|V${viaje.numero_viaje}|${viaje.producto}|P${i}`;
+    const el = document.getElementById('qr-gen-'+i);
+    if(el && typeof QRCode !== 'undefined'){
+      QRCode.toCanvas(document.createElement('canvas'),qrData,{width:70,margin:1},function(err,canvas){
+        if(!err) el.appendChild(canvas);
+      });
+    }
+  }
+
+  // Prepare print area
+  preparePrintArea(viaje, cantidad);
+}
+
+function preparePrintArea(viaje, cantidad){
+  const area = document.getElementById('print-area');
+  let html = '<div class="print-grid">';
+  for(let i=1;i<=cantidad;i++){
+    const qrId = 'qr-print-'+i;
+    html += `
+      <div class="paleticket-card">
+        <div class="pt-header">
+          <img src="logo.png" class="pt-logo" onerror="this.style.display='none'">
+          <div class="pt-title">${t('ptTitle')}</div>
+        </div>
+        <div class="pt-producto">
+          <span class="check"><span class="box ${viaje.producto==='MANGO'?'checked':''}"></span> MANGO</span>
+          <span class="check"><span class="box ${viaje.producto==='PALTA'?'checked':''}"></span> PALTA</span>
+          <span class="check"><span class="box ${viaje.producto==='FRESA'?'checked':''}"></span> FRESA</span>
+          <span class="check"><span class="box ${viaje.producto==='OTROS'?'checked':''}"></span> OTROS</span>
+        </div>
+        <div class="pt-body">
+          <div class="pt-fields">
+            <div class="pt-field"><b>VIAJE:</b> ${viaje.numero_viaje}</div>
+            <div class="pt-field"><b>TIPO:</b> ${viaje.tipo||''}</div>
+            <div class="pt-field"><b>VARIEDAD:</b> ${viaje.variedad||''}</div>
+            <div class="pt-field"><b>FECHA ING.:</b> ${formatDate(viaje.fecha_ingreso)}</div>
+            <div class="pt-field"><b>JULIANO:</b> ${viaje.juliano_ingreso||''}</div>
+            <div class="pt-field"><b>PROVEEDOR:</b> ${viaje.proveedor||''}</div>
+            <div class="pt-field"><b>LOTE:</b> _______________</div>
+            <div class="pt-field"><b>COD.TRAZ:</b> _______________</div>
+            <div class="pt-field"><b>F.MAD:</b> _______________</div>
+          </div>
+          <div class="pt-right">
+            <div style="font-size:9px;font-weight:700">N. PALET</div>
+            <div class="pt-number">${String(i).padStart(2,'0')}</div>
+            <div class="pt-qr" id="${qrId}"></div>
+          </div>
+        </div>
+        <table class="pt-table">
+          <tr><th>N. JABAS</th><th>PESO BRUTO</th><th>PESO PALET</th><th>PESO NETO</th></tr>
+          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        </table>
+        <div class="pt-madurez"><div class="pt-madurez-title">MADUREZ / DESTINO</div>&nbsp;</div>
+        <div class="pt-footer">
+          <span>FTP.PDG.FRT.13.003</span>
+          <span>Version 01</span>
+        </div>
+      </div>
+    `;
+  }
+  html += '</div>';
+  area.innerHTML = html;
+
+  setTimeout(()=>{
+    for(let i=1;i<=cantidad;i++){
+      const qrData = `FTP|${viaje.id}|V${viaje.numero_viaje}|${viaje.producto}|P${i}`;
+      const el = document.getElementById('qr-print-'+i);
+      if(el && typeof QRCode !== 'undefined'){
+        QRCode.toCanvas(document.createElement('canvas'),qrData,{width:64,margin:1},function(err,canvas){
+          if(!err) el.appendChild(canvas);
+        });
+      }
+    }
+  },100);
+}
+
+function printPaletickets(){
+  window.print();
+}
+
+function selectRadio(el, groupId){
+  document.querySelectorAll('#'+groupId+' .radio-opt').forEach(o=>o.classList.remove('active'));
+  el.classList.add('active');
+  el.querySelector('input').checked = true;
+}
+
+// ============================================================
+//  REGISTRO — Data Entry
+// ============================================================
+async function loadViajes(target='reg'){
+  try{
+    const vj = await sbGet('viajes_mp','select=*&order=created_at.desc');
+    viajes = vj;
+    const sel = document.getElementById(target==='rep'?'repViajeSelect':'regViajeSelect');
+    const current = sel.value;
+    sel.innerHTML = `<option value="">${t('selTrip')}</option>`;
+    vj.forEach(v=>{
+      sel.innerHTML += `<option value="${v.id}">${t('tripNum')} ${v.numero_viaje} — ${v.producto} ${v.variedad||''} — ${formatDate(v.fecha_ingreso)} — ${v.proveedor||''}</option>`;
+    });
+    if(current) sel.value = current;
+  }catch(e){ console.error(e); }
+}
+
+async function loadPaletsForViaje(){
+  const viajeId = document.getElementById('regViajeSelect').value;
+  const container = document.getElementById('regPaletsList');
+  if(!viajeId){ container.innerHTML=''; document.getElementById('regProgress').style.display='none'; return; }
+
+  try{
+    const palets = await sbGet('palets_mp',`viaje_id=eq.${viajeId}&order=numero_palet.asc`);
+    currentPalets = palets;
+
+    // Progress
+    const registered = palets.filter(p=>p.registrado).length;
+    document.getElementById('regProgress').style.display='block';
+    document.getElementById('regProgText').textContent = `${registered}/${palets.length}`;
+    document.getElementById('regProgBar').style.width = (palets.length?((registered/palets.length)*100):0)+'%';
+
+    // Table
+    let html = `<div class="card"><div class="table-wrap"><table class="table">
+      <thead><tr>
+        <th>N.</th><th>Lote</th><th>${t('traceCode')}</th><th>${t('time')}</th>
+        <th>${t('crates')}</th><th>${t('grossWeight')}</th><th>${t('palletWeight')}</th><th>${t('netWeight')}</th>
+        <th>${t('ripDest')}</th><th>${t('status')}</th><th></th>
+      </tr></thead><tbody>`;
+
+    palets.forEach(p=>{
+      const isReg = p.registrado;
+      html += `<tr style="${isReg?'':'opacity:.7'}">
+        <td class="mono" style="font-weight:800;color:var(--primary)">${String(p.numero_palet).padStart(2,'0')}</td>
+        <td class="mono">${p.lote||'-'}</td>
+        <td class="mono">${p.codigo_trazabilidad||'-'}</td>
+        <td class="mono">${p.hora||'-'}</td>
+        <td class="mono">${p.num_jabas||'-'}</td>
+        <td class="mono">${p.peso_bruto?formatNum(p.peso_bruto):'-'}</td>
+        <td class="mono">${p.peso_palet?formatNum(p.peso_palet):'-'}</td>
+        <td class="mono" style="font-weight:700;color:var(--green)">${p.peso_neto?formatNum(p.peso_neto):'-'}</td>
+        <td>${p.madurez_destino||'-'}</td>
+        <td>${isReg?`<span class="badge badge-green">${t('registered')}</span>`:`<span class="badge badge-amber">${t('pending')}</span>`}</td>
+        <td><button class="btn btn-primary btn-sm" onclick="openPaletModal('${p.id}')">${t('editPalet')}</button></td>
+      </tr>`;
+    });
+
+    html += '</tbody></table></div></div>';
+    container.innerHTML = html;
+  }catch(e){ console.error(e); toast(t('errorGeneric'),'error'); }
+}
+
+function openPaletModal(paletId){
+  const p = currentPalets.find(x=>x.id===paletId);
+  if(!p) return;
+  editingPaletId = paletId;
+  document.getElementById('modalPaletNum').textContent = String(p.numero_palet).padStart(2,'0');
+  document.getElementById('modLote').value = p.lote||'';
+  document.getElementById('modCodTraz').value = p.codigo_trazabilidad||'';
+  document.getElementById('modFechaTraslado').value = p.fecha_traslado||'';
+  document.getElementById('modHora').value = p.hora||'';
+  document.getElementById('modFechaMad').value = p.fecha_maduracion||'';
+  document.getElementById('modJabas').value = p.num_jabas||'';
+  document.getElementById('modBruto').value = p.peso_bruto||'';
+  document.getElementById('modPalet').value = p.peso_palet||'';
+  document.getElementById('modNeto').value = p.peso_neto||'';
+  document.getElementById('modMadurez').value = p.madurez_destino||'';
+  document.getElementById('modObs').value = p.observaciones||'';
+  document.getElementById('modalOverlay').style.display = 'flex';
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').style.display = 'none';
+  editingPaletId = null;
+}
+
+function calcPesoNeto(){
+  const bruto = parseFloat(document.getElementById('modBruto').value)||0;
+  const palet = parseFloat(document.getElementById('modPalet').value)||0;
+  document.getElementById('modNeto').value = (bruto-palet).toFixed(2);
+}
+
+async function savePalet(){
+  if(!editingPaletId) return;
+  const data = {
+    lote: document.getElementById('modLote').value||null,
+    codigo_trazabilidad: document.getElementById('modCodTraz').value||null,
+    fecha_traslado: document.getElementById('modFechaTraslado').value||null,
+    hora: document.getElementById('modHora').value||null,
+    fecha_maduracion: document.getElementById('modFechaMad').value||null,
+    num_jabas: parseInt(document.getElementById('modJabas').value)||0,
+    peso_bruto: parseFloat(document.getElementById('modBruto').value)||0,
+    peso_palet: parseFloat(document.getElementById('modPalet').value)||0,
+    peso_neto: parseFloat(document.getElementById('modNeto').value)||0,
+    madurez_destino: document.getElementById('modMadurez').value||null,
+    observaciones: document.getElementById('modObs').value||null,
+    registrado: true
+  };
+  try{
+    await sbPatch('palets_mp', editingPaletId, data);
+    toast(t('paletSaved'));
+    closeModal();
+    loadPaletsForViaje();
+  }catch(e){ console.error(e); toast(t('errorGeneric'),'error'); }
+}
+
+// ============================================================
+//  QR SCANNER
+// ============================================================
+function startScanner(){
+  const reader = document.getElementById('scanner-reader');
+  reader.innerHTML = '';
+  document.getElementById('scanStartBtn').style.display='none';
+  document.getElementById('scanStopBtn').style.display='inline-flex';
+  document.getElementById('scanResult').style.display='none';
+
+  html5QrCode = new Html5Qrcode('scanner-reader');
+  html5QrCode.start(
+    {facingMode:'environment'},
+    {fps:10,qrbox:{width:250,height:250}},
+    onScanSuccess,
+    ()=>{}
+  ).catch(err=>{
+    console.error(err);
+    toast('Camera error: '+err,'error');
+    stopScanner();
+  });
+}
+
+function stopScanner(){
+  document.getElementById('scanStartBtn').style.display='inline-flex';
+  document.getElementById('scanStopBtn').style.display='none';
+  if(html5QrCode){
+    html5QrCode.stop().catch(()=>{});
+    html5QrCode = null;
+  }
+}
+
+async function onScanSuccess(decoded){
+  stopScanner();
+  // Parse QR: FTP|{viaje_id}|V{numero_viaje}|{producto}|P{numero_palet}
+  const parts = decoded.split('|');
+  if(parts.length<5 || parts[0]!=='FTP'){
+    document.getElementById('scanResult').style.display='block';
+    document.getElementById('scanResult').innerHTML = `<div class="card" style="border-color:var(--red)"><p style="color:var(--red);font-weight:700">QR no valido: ${decoded}</p></div>`;
+    return;
+  }
+  const viajeId = parts[1];
+  const paletNum = parseInt(parts[4].replace('P',''));
+
+  try{
+    const palets = await sbGet('palets_mp',`viaje_id=eq.${viajeId}&numero_palet=eq.${paletNum}`);
+    const viaje_arr = await sbGet('viajes_mp',`id=eq.${viajeId}`);
+    if(!palets.length||!viaje_arr.length){
+      document.getElementById('scanResult').innerHTML = `<div class="card" style="border-color:var(--red)"><p style="color:var(--red);font-weight:700">${t('scanNotFound')}</p></div>`;
+      document.getElementById('scanResult').style.display='block';
+      return;
+    }
+    const p = palets[0];
+    const v = viaje_arr[0];
+    document.getElementById('scanResult').style.display='block';
+    document.getElementById('scanResult').innerHTML = `
+      <div class="scan-result">
+        <h3 style="color:var(--green);margin-bottom:12px">${t('scanFound')}</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px">
+          <div><b>${t('product')}:</b> ${prodBadge(v.producto)}</div>
+          <div><b>Palet:</b> <span style="font-size:22px;font-weight:900;color:var(--primary)">#${String(p.numero_palet).padStart(2,'0')}</span></div>
+          <div><b>${t('tripNum')}:</b> ${v.numero_viaje}</div>
+          <div><b>${t('variety')}:</b> ${v.variedad||'-'}</div>
+          <div><b>${t('type')}:</b> ${v.tipo||'-'}</div>
+          <div><b>${t('supplier')}:</b> ${v.proveedor||'-'}</div>
+          <div><b>${t('entryDate')}:</b> ${formatDate(v.fecha_ingreso)}</div>
+          <div><b>${t('shift')}:</b> ${v.turno||'-'}</div>
+          <div><b>Lote:</b> ${p.lote||'-'}</div>
+          <div><b>${t('traceCode')}:</b> ${p.codigo_trazabilidad||'-'}</div>
+          <div><b>${t('crates')}:</b> ${p.num_jabas||'-'}</div>
+          <div><b>${t('grossWeight')}:</b> ${p.peso_bruto?formatNum(p.peso_bruto)+' kg':'-'}</div>
+          <div><b>${t('palletWeight')}:</b> ${p.peso_palet?formatNum(p.peso_palet)+' kg':'-'}</div>
+          <div><b>${t('netWeight')}:</b> <span style="font-weight:800;color:var(--green)">${p.peso_neto?formatNum(p.peso_neto)+' kg':'-'}</span></div>
+          <div><b>${t('ripDest')}:</b> ${p.madurez_destino||'-'}</div>
+          <div><b>${t('observations')}:</b> ${p.observaciones||'-'}</div>
+          <div><b>${t('status')}:</b> ${p.registrado?`<span class="badge badge-green">${t('registered')}</span>`:`<span class="badge badge-amber">${t('pending')}</span>`}</div>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:8px">
+          <button class="btn btn-primary" onclick="document.getElementById('regViajeSelect').value='${viajeId}';showTab('registro');loadPaletsForViaje();setTimeout(()=>openPaletModal('${p.id}'),500)">${t('editPalet')}</button>
+          <button class="btn btn-secondary" onclick="startScanner()">${t('startScan')}</button>
+        </div>
+      </div>
+    `;
+  }catch(e){
+    console.error(e);
+    toast(t('errorGeneric'),'error');
+  }
+}
+
+// ============================================================
+//  REPORTE — Reception Report
+// ============================================================
+async function loadReport(){
+  const viajeId = document.getElementById('repViajeSelect').value;
+  const container = document.getElementById('reportPreview');
+  if(!viajeId){container.innerHTML='';return;}
+
+  try{
+    const [vj, palets, reps] = await Promise.all([
+      sbGet('viajes_mp',`id=eq.${viajeId}`),
+      sbGet('palets_mp',`viaje_id=eq.${viajeId}&order=numero_palet.asc`),
+      sbGet('reportes_mp',`viaje_id=eq.${viajeId}`)
+    ]);
+    if(!vj.length) return;
+    const v = vj[0];
+    if(reps.length){
+      document.getElementById('repSupervisor').value = reps[0].supervisor_nombre||'';
+      document.getElementById('repCoordinador').value = reps[0].coordinador_nombre||'';
+    }
+
+    const totals = {jabas:0,bruto:0,palet:0,neto:0};
+    palets.forEach(p=>{totals.jabas+=(+p.num_jabas||0);totals.bruto+=(+p.peso_bruto||0);totals.palet+=(+p.peso_palet||0);totals.neto+=(+p.peso_neto||0);});
+
+    let html = `<div class="card"><div class="report-print" id="reportContent">
+      <div class="rp-header">
+        <img src="logo.png" style="height:50px;padding:8px" onerror="this.style.display='none'">
+        <h1>${t('repDocTitle')}</h1>
+        <div class="rp-meta">${t('repCode')}: FTP.PDG.FRT.13.001<br>${t('repVersion')}: 01<br>${t('repDate')}: ${formatDate(v.fecha_ingreso)}</div>
+      </div>
+      <div class="rp-info">
+        <div><b>${t('product')}:</b> ${v.producto} ${v.producto_otro||''}</div>
+        <div><b>${t('variety')}:</b> ${v.variedad||''}</div>
+        <div><b>${t('entryDate')}:</b> ${formatDate(v.fecha_ingreso)}</div>
+        <div><b>${t('type')}:</b> ${v.tipo||''}</div>
+        <div><b>${t('tripNum')}:</b> ${v.numero_viaje}</div>
+        <div><b>${t('guideNum')}:</b> ${v.num_guia||''}</div>
+        <div><b>${t('supplier')}:</b> ${v.proveedor||''}</div>
+        <div><b>${t('shift')}:</b> ${v.turno||''}</div>
+      </div>
+      <table>
+        <thead><tr>
+          <th>N. PALET</th><th>LOTE/F. TRASLADO</th><th>COD. TRAZABILIDAD</th><th>HORA</th>
+          <th>N. JABAS</th><th>PESO BRUTO</th><th>PESO PALET</th><th>PESO NETO</th>
+          <th>MADUREZ / DESTINO</th><th>OBS.</th>
+        </tr></thead><tbody>`;
+
+    palets.forEach(p=>{
+      html += `<tr>
+        <td style="font-weight:700">${String(p.numero_palet).padStart(2,'0')}</td>
+        <td>${p.lote||''} ${p.fecha_traslado?formatDate(p.fecha_traslado):''}</td>
+        <td>${p.codigo_trazabilidad||''}</td>
+        <td>${p.hora||''}</td>
+        <td>${p.num_jabas||''}</td>
+        <td>${p.peso_bruto?formatNum(p.peso_bruto):''}</td>
+        <td>${p.peso_palet?formatNum(p.peso_palet):''}</td>
+        <td style="font-weight:700">${p.peso_neto?formatNum(p.peso_neto):''}</td>
+        <td>${p.madurez_destino||''}</td>
+        <td>${p.observaciones||''}</td>
+      </tr>`;
+    });
+
+    html += `<tr class="rp-totals">
+        <td colspan="4">${t('total')}</td>
+        <td>${formatNum(totals.jabas)}</td>
+        <td>${formatNum(totals.bruto)}</td>
+        <td>${formatNum(totals.palet)}</td>
+        <td>${formatNum(totals.neto)}</td>
+        <td colspan="2"></td>
+      </tr></tbody></table>
+      <div class="rp-signatures">
+        <div class="rp-sig"><b>${t('sigSupervisor')}</b><br>${t('sigName')}: ${document.getElementById('repSupervisor').value||'________________'}<br><br>______________________</div>
+        <div class="rp-sig"><b>${t('sigCoordinator')}</b><br>${t('sigName')}: ${document.getElementById('repCoordinador').value||'________________'}<br><br>______________________</div>
+      </div>
+      <div class="rp-footer">${t('repFooter')}</div>
+    </div></div>`;
+
+    container.innerHTML = html;
+  }catch(e){ console.error(e); toast(t('errorGeneric'),'error'); }
+}
+
+async function saveReport(){
+  const viajeId = document.getElementById('repViajeSelect').value;
+  if(!viajeId){toast(t('selectTrip'),'error');return;}
+  const data = {
+    viaje_id: viajeId,
+    supervisor_nombre: document.getElementById('repSupervisor').value||null,
+    coordinador_nombre: document.getElementById('repCoordinador').value||null,
+    finalizado: true
+  };
+  try{
+    const existing = await sbGet('reportes_mp',`viaje_id=eq.${viajeId}`);
+    if(existing.length){
+      await sbPatch('reportes_mp', existing[0].id, data);
+    } else {
+      await sbPost('reportes_mp',[data]);
+    }
+    toast(t('reportSaved'));
+  }catch(e){ console.error(e); toast(t('errorGeneric'),'error'); }
+}
+
+function printReport(){
+  const content = document.getElementById('reportContent');
+  if(!content) return;
+  const win = window.open('','_blank');
+  win.document.write(`<!DOCTYPE html><html><head><title>${t('repDocTitle')}</title>
+    <style>
+      *{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;padding:10mm;color:#000}
+      .rp-header{display:grid;grid-template-columns:auto 1fr auto;align-items:center;border:2px solid #333}
+      .rp-header img{height:50px;padding:8px}
+      .rp-header h1{font-size:18px;text-align:center;padding:8px;border-left:2px solid #333;border-right:2px solid #333}
+      .rp-meta{font-size:10px;padding:8px;line-height:1.6}
+      .rp-info{display:grid;grid-template-columns:1fr 1fr;border:2px solid #333;border-top:none;padding:10px 14px;font-size:12px}
+      .rp-info div{padding:3px 0}
+      table{width:100%;border-collapse:collapse;border:2px solid #333;border-top:none;font-size:11px}
+      th{background:#f0f0f0;padding:6px;border:1px solid #333;text-transform:uppercase;font-size:10px}
+      td{padding:5px 6px;border:1px solid #ccc;text-align:center}
+      .rp-totals td{font-weight:900;background:#fff3e0;border:2px solid #333;font-size:12px}
+      .rp-signatures{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:30px;padding:0 30px}
+      .rp-sig{text-align:center;border-top:1px solid #333;padding-top:8px;font-size:11px}
+      .rp-footer{text-align:center;font-size:9px;font-weight:700;border:2px solid #333;padding:6px;margin-top:16px}
+      @page{size:A4 portrait;margin:8mm}
+    </style></head><body>${content.innerHTML}</body></html>`);
+  win.document.close();
+  setTimeout(()=>win.print(),500);
+}
+
+// ============================================================
+//  DASHBOARD — Analytics
+// ============================================================
+async function loadDashboard(){
+  const from = document.getElementById('dashFrom').value;
+  const to = document.getElementById('dashTo').value;
+  let query = 'select=*&order=fecha_ingreso.desc';
+  if(from) query += `&fecha_ingreso=gte.${from}`;
+  if(to) query += `&fecha_ingreso=lte.${to}`;
+
+  try{
+    const [vj, pl] = await Promise.all([
+      sbGet('viajes_mp',query),
+      sbGet('palets_mp','select=*,viajes_mp!inner(fecha_ingreso,producto,tipo,proveedor)'+(from?`&viajes_mp.fecha_ingreso=gte.${from}`:'')+(to?`&viajes_mp.fecha_ingreso=lte.${to}`:''))
+    ]);
+
+    // KPIs
+    const regPalets = pl.filter(p=>p.registrado);
+    const totalNeto = pl.reduce((s,p)=>s+(+p.peso_neto||0),0);
+    document.getElementById('dkViajes').textContent = vj.length;
+    document.getElementById('dkPalets').textContent = regPalets.length;
+    document.getElementById('dkPeso').textContent = formatNum(totalNeto);
+    document.getElementById('dkAvg').textContent = regPalets.length?formatNum(totalNeto/regPalets.length):'0';
+
+    // Chart: Product
+    const prodData = {};
+    vj.forEach(v=>{prodData[v.producto]=(prodData[v.producto]||0)+1;});
+    renderChart('chartProducto','producto','doughnut',Object.keys(prodData),Object.values(prodData),
+      Object.keys(prodData).map(p=>p==='MANGO'?'#f97316':p==='PALTA'?'#22c55e':p==='FRESA'?'#ef4444':'#3b82f6'));
+
+    // Chart: Daily net weight
+    const dailyData = {};
+    pl.forEach(p=>{
+      if(p.viajes_mp){
+        const d = p.viajes_mp.fecha_ingreso;
+        dailyData[d] = (dailyData[d]||0)+(+p.peso_neto||0);
+      }
+    });
+    const sortedDays = Object.keys(dailyData).sort();
+    renderChart('chartDiario','diario','line',sortedDays.map(d=>formatDate(d)),sortedDays.map(d=>dailyData[d]),['#f97316']);
+
+    // Chart: Type
+    const typeData = {};
+    vj.forEach(v=>{typeData[v.tipo||'N/A']=(typeData[v.tipo||'N/A']||0)+1;});
+    renderChart('chartTipo','tipo','doughnut',Object.keys(typeData),Object.values(typeData),['#22c55e','#3b82f6','#94a3b8']);
+
+    // Chart: Supplier
+    const suppData = {};
+    vj.forEach(v=>{if(v.proveedor)suppData[v.proveedor]=(suppData[v.proveedor]||0)+1;});
+    const suppEntries = Object.entries(suppData).sort((a,b)=>b[1]-a[1]).slice(0,8);
+    renderChart('chartProveedor','proveedor','bar',suppEntries.map(e=>e[0]),suppEntries.map(e=>e[1]),['#f97316']);
+
+    // Table
+    const tbody = document.getElementById('dashTableBody');
+    tbody.innerHTML = vj.map(v=>{
+      const vPalets = pl.filter(p=>p.viaje_id===v.id);
+      const vReg = vPalets.filter(p=>p.registrado).length;
+      const vNeto = vPalets.reduce((s,p)=>s+(+p.peso_neto||0),0);
+      return `<tr>
+        <td class="mono" style="font-weight:700">${v.numero_viaje}</td>
+        <td>${prodBadge(v.producto)}</td>
+        <td>${v.variedad||'-'}</td>
+        <td>${v.tipo||'-'}</td>
+        <td>${formatDate(v.fecha_ingreso)}</td>
+        <td>${v.proveedor||'-'}</td>
+        <td>${vReg}/${v.total_palets}</td>
+        <td class="mono" style="font-weight:700;color:var(--green)">${formatNum(vNeto)}</td>
+        <td>${vReg===v.total_palets?`<span class="badge badge-green">${t('registered')}</span>`:`<span class="badge badge-amber">${vReg}/${v.total_palets}</span>`}</td>
+      </tr>`;
+    }).join('');
+  }catch(e){ console.error(e); }
+}
+
+function renderChart(canvasId, key, type, labels, data, colors){
+  const ctx = document.getElementById(canvasId);
+  if(!ctx) return;
+  if(charts[key]){charts[key].destroy();}
+  const isDark = !document.body.classList.contains('light');
+  const gridColor = isDark?'rgba(255,255,255,.06)':'rgba(0,0,0,.06)';
+  const textColor = isDark?'#94a3b8':'#64748b';
+
+  const config = {
+    type: type,
+    data:{
+      labels: labels,
+      datasets:[{
+        data: data,
+        backgroundColor: type==='line'?'rgba(249,115,22,.15)':colors,
+        borderColor: type==='line'?'#f97316':colors,
+        borderWidth: type==='line'?2:0,
+        fill: type==='line',
+        tension: 0.4,
+        pointRadius: type==='line'?4:0,
+        pointBackgroundColor:'#f97316',
+        barThickness: type==='bar'?24:undefined,
+        borderRadius: type==='bar'?6:undefined,
+      }]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:true,
+      plugins:{legend:{display:type==='doughnut',position:'bottom',labels:{color:textColor,padding:12,font:{size:11}}}},
+      scales: type==='doughnut'?{}:{
+        x:{grid:{color:gridColor},ticks:{color:textColor,font:{size:10}}},
+        y:{grid:{color:gridColor},ticks:{color:textColor,font:{size:10}},beginAtZero:true}
+      }
+    }
+  };
+  charts[key] = new Chart(ctx, config);
+}
+
+// ============================================================
+//  INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', async ()=>{
+  // Theme
+  const savedTheme = localStorage.getItem('mp_theme');
+  if(savedTheme==='light'){document.body.classList.add('light');document.getElementById('themeBtn').textContent='D';}
+  // Date defaults
+  document.getElementById('genFecha').value = today();
+  const d = new Date();
+  const jan1 = new Date(d.getFullYear(),0,0);
+  const diff = d - jan1;
+  const julian = Math.floor(diff / 86400000);
+  document.getElementById('genJuliano').value = julian;
+  // Dashboard date range (last 30 days)
+  const from30 = new Date(d);
+  from30.setDate(from30.getDate()-30);
+  document.getElementById('dashFrom').value = from30.toISOString().split('T')[0];
+  document.getElementById('dashTo').value = today();
+  // Language
+  setLang(currentLang);
+  // Check connection
+  checkConnection();
+  // Load home
+  loadHome();
+});
+
+// Close dropdown on click outside
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.lang-btn')&&!e.target.closest('.lang-dropdown')){
+    document.getElementById('langDropdown').classList.remove('show');
+  }
+});
+
+// Register service worker
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+</script>
+</body>
+</html>
