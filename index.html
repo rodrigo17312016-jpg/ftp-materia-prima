@@ -192,27 +192,42 @@ textarea.form-input{resize:vertical;min-height:60px}
 .empty-desc{font-size:13px}
 
 /* PALETICKET PRINT */
-.paleticket-card{background:#fff;border:2px solid #333;border-radius:4px;padding:10px;color:#000;font-family:Arial,sans-serif;font-size:11px;break-inside:avoid;page-break-inside:avoid;width:100%;height:100%}
-.paleticket-card .pt-header{display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #333;padding-bottom:6px;margin-bottom:6px}
-.paleticket-card .pt-logo{height:30px}
-.paleticket-card .pt-title{font-size:13px;font-weight:900;text-align:center;flex:1}
-.paleticket-card .pt-body{display:grid;grid-template-columns:1fr auto;gap:6px}
-.paleticket-card .pt-fields{display:grid;gap:3px}
-.paleticket-card .pt-field{display:flex;gap:4px;font-size:10px}
-.paleticket-card .pt-field b{white-space:nowrap}
-.paleticket-card .pt-right{text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
-.paleticket-card .pt-number{font-size:28px;font-weight:900;color:#f97316}
-.paleticket-card .pt-qr canvas{border:1px solid #ccc}
-.paleticket-card .pt-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:10px}
-.paleticket-card .pt-table th,.paleticket-card .pt-table td{border:1px solid #666;padding:4px 6px;text-align:center}
+.paleticket-card{background:#fff;border:2px solid #000;color:#000;font-family:Arial,sans-serif;font-size:11px;break-inside:avoid;page-break-inside:avoid;width:100%;display:flex;flex-direction:column;position:relative;box-sizing:border-box}
+.paleticket-card .pt-orig-copy{position:absolute;top:3px;right:6px;font-size:9px;font-weight:900;padding:2px 8px;border:1.5px solid #000;background:#fff;z-index:3;letter-spacing:1px}
+.paleticket-card .pt-orig-copy.copia{background:#fff3cd;border-color:#856404;color:#856404}
+.paleticket-card .pt-header{display:grid;grid-template-columns:auto 1fr;align-items:center;border-bottom:2px solid #000}
+.paleticket-card .pt-logo-wrap{padding:4px 8px;border-right:2px solid #000;display:flex;align-items:center;justify-content:center}
+.paleticket-card .pt-logo{height:32px}
+.paleticket-card .pt-title{font-size:16px;font-weight:900;text-align:center;padding:8px;letter-spacing:0.5px}
+.paleticket-card .pt-content{display:grid;grid-template-columns:1fr 130px;padding:6px 8px;gap:8px}
+.paleticket-card .pt-left{display:flex;flex-direction:column;gap:5px}
+.paleticket-card .pt-producto-row{display:flex;gap:10px;align-items:center;font-weight:700;font-size:10.5px;flex-wrap:wrap}
+.paleticket-card .pt-producto-row .check{display:inline-flex;align-items:center;gap:3px}
+.paleticket-card .pt-producto-row .box{width:14px;height:14px;border:1.5px solid #000;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;line-height:1}
+.paleticket-card .pt-producto-row .box.checked::after{content:"X"}
+.paleticket-card .pt-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:10px}
+.paleticket-card .pt-field{display:flex;gap:4px;align-items:baseline}
+.paleticket-card .pt-field b{white-space:nowrap;font-weight:700}
+.paleticket-card .pt-field-val{border-bottom:1px solid #000;flex:1;min-height:14px;padding:0 3px;font-weight:500}
+.paleticket-card .pt-right-top{display:flex;flex-direction:column;gap:4px}
+.paleticket-card .pt-palet-line{display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700;font-size:11px;border:1.5px solid #000;padding:4px}
+.paleticket-card .pt-palet-line .pt-number{font-size:22px;font-weight:900;color:#000;line-height:1}
+.paleticket-card .pt-qr{display:flex;justify-content:center;align-items:center;min-height:68px;border:1.5px solid #000;padding:2px;background:#fff}
+.paleticket-card .pt-qr img{width:64px;height:64px;display:block}
+.paleticket-card .pt-madurez{border:1.5px solid #000;min-height:50px;display:flex;flex-direction:column;flex:1}
+.paleticket-card .pt-madurez-title{font-size:10px;font-weight:700;text-align:center;padding:2px;border-bottom:1.5px solid #000}
+.paleticket-card .pt-madurez-body{flex:1;padding:2px}
+.paleticket-card .pt-bottom{display:grid;grid-template-columns:2fr 1fr;border-top:2px solid #000}
+.paleticket-card .pt-datos{border-right:2px solid #000;display:flex;flex-direction:column}
+.paleticket-card .pt-datos-title,.paleticket-card .pt-obs-title{text-align:center;font-weight:700;font-size:11px;padding:2px;border-bottom:1.5px solid #000}
+.paleticket-card .pt-table{width:100%;border-collapse:collapse;font-size:10px;flex:1}
+.paleticket-card .pt-table th,.paleticket-card .pt-table td{border-right:1px solid #000;border-bottom:1px solid #000;padding:3px;text-align:center}
+.paleticket-card .pt-table th:last-child,.paleticket-card .pt-table td:last-child{border-right:0}
+.paleticket-card .pt-table tr:last-child td{border-bottom:0;min-height:20px}
 .paleticket-card .pt-table th{background:#f0f0f0;font-weight:700;font-size:9px}
-.paleticket-card .pt-footer{display:flex;justify-content:space-between;margin-top:4px;font-size:8px;color:#666;border-top:1px solid #ccc;padding-top:3px}
-.paleticket-card .pt-producto{display:flex;gap:8px;font-size:10px;font-weight:700;margin-bottom:4px}
-.paleticket-card .pt-producto .check{display:inline-flex;align-items:center;gap:2px}
-.paleticket-card .pt-producto .box{width:12px;height:12px;border:1.5px solid #333;display:inline-block}
-.paleticket-card .pt-producto .box.checked{background:#f97316;border-color:#f97316}
-.paleticket-card .pt-madurez{border:1px solid #333;padding:4px;min-height:30px;font-size:10px;margin-top:4px}
-.paleticket-card .pt-madurez-title{font-size:9px;font-weight:700;text-align:center;background:#eee;padding:2px;border-bottom:1px solid #333;margin:-4px -4px 3px;text-transform:uppercase}
+.paleticket-card .pt-obs{min-height:36px;padding:3px;font-size:10px}
+.paleticket-card .pt-footer{display:grid;grid-template-columns:auto 1fr auto;border-top:2px solid #000;padding:3px 8px;font-size:9px;align-items:center;gap:8px}
+.paleticket-card .pt-footer .pt-conf{text-align:center;font-style:italic}
 
 /* SCANNER */
 #scanner-video{width:100%;max-width:500px;border-radius:var(--radius);overflow:hidden;border:2px solid var(--primary)}
@@ -255,9 +270,10 @@ textarea.form-input{resize:vertical;min-height:60px}
   .main{padding:0!important;max-width:100%!important}
   .tab-panel{display:none!important}
   #print-area{display:block!important}
-  .print-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:4mm}
-  .paleticket-card{border:1.5px solid #000}
-  @page{size:A4 landscape;margin:4mm}
+  .print-page{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3mm;padding:4mm;page-break-after:always;height:197mm;box-sizing:border-box}
+  .print-page:last-child{page-break-after:auto}
+  .paleticket-card{border:1.5px solid #000;height:100%}
+  @page{size:A4 landscape;margin:0}
 }
 #print-area{display:none}
 
@@ -942,136 +958,141 @@ async function generarPaletickets(){
   }
 }
 
+function paleticketHTML(viaje, i, copyType, scope){
+  const isMango = viaje.producto==='MANGO';
+  const isPalta = viaje.producto==='PALTA';
+  const isFresa = viaje.producto==='FRESA';
+  const isOtros = viaje.producto==='OTROS';
+  const otrosText = isOtros ? (viaje.producto_otro||viaje.variedad||'') : '';
+  const qrId = `qr-${scope}-${i}-${copyType==='ORIGINAL'?'o':'c'}`;
+  return `
+    <div class="paleticket-card">
+      <div class="pt-orig-copy ${copyType==='COPIA'?'copia':''}">${copyType}</div>
+      <div class="pt-header">
+        <div class="pt-logo-wrap"><img src="logo.png" class="pt-logo" onerror="this.style.display='none'"></div>
+        <div class="pt-title">PALETICKET DE MATERIA PRIMA</div>
+      </div>
+      <div class="pt-content">
+        <div class="pt-left">
+          <div class="pt-producto-row">
+            <b>PRODUCTO:</b>
+            <span class="check">MANGO<span class="box ${isMango?'checked':''}"></span></span>
+            <span class="check">PALTA<span class="box ${isPalta?'checked':''}"></span></span>
+            <span class="check">FRESA<span class="box ${isFresa?'checked':''}"></span></span>
+            <span class="check">OTROS:<span class="pt-field-val" style="min-width:70px">${otrosText}</span></span>
+          </div>
+          <div class="pt-field" style="max-width:140px"><b>VIAJE:</b><span class="pt-field-val">${viaje.numero_viaje||''}</span></div>
+          <div class="pt-row">
+            <div class="pt-field"><b>TIPO:</b><span class="pt-field-val">${viaje.tipo||''}</span></div>
+            <div class="pt-field"><b>VARIEDAD:</b><span class="pt-field-val">${viaje.variedad||''}</span></div>
+          </div>
+          <div class="pt-row">
+            <div class="pt-field"><b>FECHA DE ING.:</b><span class="pt-field-val">${formatDate(viaje.fecha_ingreso)}</span></div>
+            <div class="pt-field"><b>LOTE:</b><span class="pt-field-val"></span></div>
+          </div>
+          <div class="pt-row">
+            <div class="pt-field"><b>JULIANO DE ING.:</b><span class="pt-field-val">${viaje.juliano_ingreso||''}</span></div>
+            <div class="pt-field"><b>COD. DE TRAZABILIDAD:</b><span class="pt-field-val"></span></div>
+          </div>
+          <div class="pt-row">
+            <div class="pt-field"><b>PROVEEDOR:</b><span class="pt-field-val">${viaje.proveedor||''}</span></div>
+            <div class="pt-field"><b>F. DE MADURACIÓN:</b><span class="pt-field-val"></span></div>
+          </div>
+        </div>
+        <div class="pt-right-top">
+          <div class="pt-palet-line">N° PALET: <span class="pt-number">${String(i).padStart(2,'0')}</span></div>
+          <div class="pt-qr" id="${qrId}"></div>
+          <div class="pt-madurez">
+            <div class="pt-madurez-title">MADUREZ / DESTINO</div>
+            <div class="pt-madurez-body"></div>
+          </div>
+        </div>
+      </div>
+      <div class="pt-bottom">
+        <div class="pt-datos">
+          <div class="pt-datos-title">DATOS</div>
+          <table class="pt-table">
+            <tr><th>N° JABAS</th><th>PESO BRUTO</th><th>PESO PALET</th><th>PESO NETO</th></tr>
+            <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="pt-obs-title">OBSERVACIONES</div>
+          <div class="pt-obs"></div>
+        </div>
+      </div>
+      <div class="pt-footer">
+        <span><b>FTP.PDG.FRT.13.003</b></span>
+        <span class="pt-conf">Confidencial: Prohibido reproducir total o parcialmente sin autorización del G.G.</span>
+        <span><b>Version 01</b></span>
+      </div>
+    </div>
+  `;
+}
+
+function genQR(elementId, data){
+  if(typeof QRCode === 'undefined'){ console.warn('QRCode library not loaded'); return; }
+  QRCode.toDataURL(data, {width:128, margin:1, errorCorrectionLevel:'M'}, function(err, url){
+    if(err){ console.error('QR error:', err); return; }
+    const el = document.getElementById(elementId);
+    if(el) el.innerHTML = '<img src="'+url+'" alt="QR">';
+  });
+}
+
 function renderPaleticketPreview(viaje, cantidad){
   const container = document.getElementById('genPreview');
   let html = `
     <div class="card" style="margin-bottom:16px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-        <div class="card-title">${prodBadge(viaje.producto)} ${t('tripNum')} ${viaje.numero_viaje} — ${cantidad} Paletickets</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+        <div class="card-title">${prodBadge(viaje.producto)} ${t('tripNum')} ${viaje.numero_viaje} — ${cantidad} Paletickets (Original + Copia)</div>
         <button class="btn btn-primary" onclick="printPaletickets()" data-i18n="printPT">${t('printPT')}</button>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(480px,1fr));gap:12px">
   `;
   for(let i=1;i<=cantidad;i++){
-    const qrId = 'qr-gen-'+i;
-    html += `
-      <div class="paleticket-card" id="pt-card-${i}">
-        <div class="pt-header">
-          <img src="logo.png" class="pt-logo" onerror="this.style.display='none'">
-          <div class="pt-title">${t('ptTitle')}</div>
-        </div>
-        <div class="pt-producto">
-          <span class="check"><span class="box ${viaje.producto==='MANGO'?'checked':''}"></span> MANGO</span>
-          <span class="check"><span class="box ${viaje.producto==='PALTA'?'checked':''}"></span> PALTA</span>
-          <span class="check"><span class="box ${viaje.producto==='FRESA'?'checked':''}"></span> FRESA</span>
-          <span class="check"><span class="box ${viaje.producto==='OTROS'?'checked':''}"></span> OTROS</span>
-        </div>
-        <div class="pt-body">
-          <div class="pt-fields">
-            <div class="pt-field"><b>${t('tripNum')}:</b> ${viaje.numero_viaje}</div>
-            <div class="pt-field"><b>${t('type')}:</b> ${viaje.tipo||''}</div>
-            <div class="pt-field"><b>${t('variety')}:</b> ${viaje.variedad||''}</div>
-            <div class="pt-field"><b>${t('entryDate')}:</b> ${formatDate(viaje.fecha_ingreso)}</div>
-            <div class="pt-field"><b>${t('julianDate')}:</b> ${viaje.juliano_ingreso||''}</div>
-            <div class="pt-field"><b>${t('supplier')}:</b> ${viaje.proveedor||''}</div>
-          </div>
-          <div class="pt-right">
-            <div style="font-size:9px;font-weight:700">N. PALET</div>
-            <div class="pt-number">${String(i).padStart(2,'0')}</div>
-            <div class="pt-qr" id="${qrId}"></div>
-          </div>
-        </div>
-        <table class="pt-table">
-          <tr><th>${t('crates')}</th><th>${t('grossWeight')}</th><th>${t('palletWeight')}</th><th>${t('netWeight')}</th></tr>
-          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-        </table>
-        <div class="pt-madurez"><div class="pt-madurez-title">${t('ripDest')}</div>&nbsp;</div>
-        <div class="pt-footer">
-          <span>FTP.PDG.FRT.13.003</span>
-          <span>${t('ptVersion')}</span>
-        </div>
-      </div>
-    `;
+    html += paleticketHTML(viaje, i, 'ORIGINAL', 'gen');
   }
   html += '</div></div>';
   container.innerHTML = html;
 
-  // Generate QR codes
-  for(let i=1;i<=cantidad;i++){
-    const qrData = `FTP|${viaje.id}|V${viaje.numero_viaje}|${viaje.producto}|P${i}`;
-    const el = document.getElementById('qr-gen-'+i);
-    if(el && typeof QRCode !== 'undefined'){
-      QRCode.toCanvas(document.createElement('canvas'),qrData,{width:70,margin:1},function(err,canvas){
-        if(!err) el.appendChild(canvas);
-      });
+  // Generate QR codes for preview
+  setTimeout(()=>{
+    for(let i=1;i<=cantidad;i++){
+      const qrData = `FTP|${viaje.id}|V${viaje.numero_viaje}|${viaje.producto}|P${i}`;
+      genQR(`qr-gen-${i}-o`, qrData);
     }
-  }
+  }, 50);
 
-  // Prepare print area
+  // Prepare print area (original + copia, 4 per A4 page)
   preparePrintArea(viaje, cantidad);
 }
 
 function preparePrintArea(viaje, cantidad){
   const area = document.getElementById('print-area');
-  let html = '<div class="print-grid">';
-  for(let i=1;i<=cantidad;i++){
-    const qrId = 'qr-print-'+i;
-    html += `
-      <div class="paleticket-card">
-        <div class="pt-header">
-          <img src="logo.png" class="pt-logo" onerror="this.style.display='none'">
-          <div class="pt-title">${t('ptTitle')}</div>
-        </div>
-        <div class="pt-producto">
-          <span class="check"><span class="box ${viaje.producto==='MANGO'?'checked':''}"></span> MANGO</span>
-          <span class="check"><span class="box ${viaje.producto==='PALTA'?'checked':''}"></span> PALTA</span>
-          <span class="check"><span class="box ${viaje.producto==='FRESA'?'checked':''}"></span> FRESA</span>
-          <span class="check"><span class="box ${viaje.producto==='OTROS'?'checked':''}"></span> OTROS</span>
-        </div>
-        <div class="pt-body">
-          <div class="pt-fields">
-            <div class="pt-field"><b>VIAJE:</b> ${viaje.numero_viaje}</div>
-            <div class="pt-field"><b>TIPO:</b> ${viaje.tipo||''}</div>
-            <div class="pt-field"><b>VARIEDAD:</b> ${viaje.variedad||''}</div>
-            <div class="pt-field"><b>FECHA ING.:</b> ${formatDate(viaje.fecha_ingreso)}</div>
-            <div class="pt-field"><b>JULIANO:</b> ${viaje.juliano_ingreso||''}</div>
-            <div class="pt-field"><b>PROVEEDOR:</b> ${viaje.proveedor||''}</div>
-            <div class="pt-field"><b>LOTE:</b> _______________</div>
-            <div class="pt-field"><b>COD.TRAZ:</b> _______________</div>
-            <div class="pt-field"><b>F.MAD:</b> _______________</div>
-          </div>
-          <div class="pt-right">
-            <div style="font-size:9px;font-weight:700">N. PALET</div>
-            <div class="pt-number">${String(i).padStart(2,'0')}</div>
-            <div class="pt-qr" id="${qrId}"></div>
-          </div>
-        </div>
-        <table class="pt-table">
-          <tr><th>N. JABAS</th><th>PESO BRUTO</th><th>PESO PALET</th><th>PESO NETO</th></tr>
-          <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-        </table>
-        <div class="pt-madurez"><div class="pt-madurez-title">MADUREZ / DESTINO</div>&nbsp;</div>
-        <div class="pt-footer">
-          <span>FTP.PDG.FRT.13.003</span>
-          <span>Version 01</span>
-        </div>
-      </div>
-    `;
+  let html = '';
+  // Each page holds 2 pallets (each with Original + Copia = 4 cards per page)
+  for(let pageStart=1; pageStart<=cantidad; pageStart+=2){
+    html += '<div class="print-page">';
+    for(let p=pageStart; p<pageStart+2 && p<=cantidad; p++){
+      html += paleticketHTML(viaje, p, 'ORIGINAL', 'print');
+      html += paleticketHTML(viaje, p, 'COPIA', 'print');
+    }
+    // Fill empty slots on last page if odd pallet count
+    if(pageStart+1 > cantidad){
+      html += '<div></div><div></div>';
+    }
+    html += '</div>';
   }
-  html += '</div>';
   area.innerHTML = html;
 
+  // Generate QR codes for print
   setTimeout(()=>{
     for(let i=1;i<=cantidad;i++){
       const qrData = `FTP|${viaje.id}|V${viaje.numero_viaje}|${viaje.producto}|P${i}`;
-      const el = document.getElementById('qr-print-'+i);
-      if(el && typeof QRCode !== 'undefined'){
-        QRCode.toCanvas(document.createElement('canvas'),qrData,{width:64,margin:1},function(err,canvas){
-          if(!err) el.appendChild(canvas);
-        });
-      }
+      genQR(`qr-print-${i}-o`, qrData);
+      genQR(`qr-print-${i}-c`, qrData);
     }
-  },100);
+  }, 100);
 }
 
 function printPaletickets(){
