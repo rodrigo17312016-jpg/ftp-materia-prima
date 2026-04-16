@@ -481,7 +481,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
         <div class="lang-option" data-lang="zh" onclick="setLang('zh')"><img class="flag-img" src="https://flagcdn.com/w40/cn.png" alt="ZH"><span class="lang-name">中文</span><span class="lang-code">ZH</span></div>
       </div>
     </div>
-    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Cambiar tema">
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" data-i18n-title="themeToggle" title="Cambiar tema">
       <svg id="themeIconDark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
       <svg id="themeIconLight" style="display:none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
     </button>
@@ -570,10 +570,10 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
       <div class="form-group">
         <label class="form-label" data-i18n="product">Producto</label>
         <div class="radio-group" id="genProducto">
-          <label class="radio-opt active" onclick="selectRadio(this,'genProducto')"><input type="radio" name="genProd" value="MANGO" checked>MANGO</label>
-          <label class="radio-opt" onclick="selectRadio(this,'genProducto')"><input type="radio" name="genProd" value="PALTA">PALTA</label>
-          <label class="radio-opt" onclick="selectRadio(this,'genProducto')"><input type="radio" name="genProd" value="FRESA">FRESA</label>
-          <label class="radio-opt" onclick="selectRadio(this,'genProducto')"><input type="radio" name="genProd" value="OTROS">OTROS</label>
+          <label class="radio-opt active" onclick="selectRadio(this,'genProducto')"><input type="radio" name="genProd" value="MANGO" checked><span data-tv="MANGO">MANGO</span></label>
+          <label class="radio-opt" onclick="selectRadio(this,'genProducto')"><input type="radio" name="genProd" value="PALTA"><span data-tv="PALTA">PALTA</span></label>
+          <label class="radio-opt" onclick="selectRadio(this,'genProducto')"><input type="radio" name="genProd" value="FRESA"><span data-tv="FRESA">FRESA</span></label>
+          <label class="radio-opt" onclick="selectRadio(this,'genProducto')"><input type="radio" name="genProd" value="OTROS"><span data-tv="OTROS">OTROS</span></label>
         </div>
       </div>
       <div class="form-group">
@@ -583,8 +583,8 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
       <div class="form-group">
         <label class="form-label" data-i18n="type">Tipo</label>
         <div class="radio-group" id="genTipo">
-          <label class="radio-opt active" onclick="selectRadio(this,'genTipo')"><input type="radio" name="genTipo" value="ORGANICO" checked>ORGANICO</label>
-          <label class="radio-opt" onclick="selectRadio(this,'genTipo')"><input type="radio" name="genTipo" value="CONVENCIONAL">CONVENCIONAL</label>
+          <label class="radio-opt active" onclick="selectRadio(this,'genTipo')"><input type="radio" name="genTipo" value="ORGANICO" checked><span data-tv="ORGANICO">ORGANICO</span></label>
+          <label class="radio-opt" onclick="selectRadio(this,'genTipo')"><input type="radio" name="genTipo" value="CONVENCIONAL"><span data-tv="CONVENCIONAL">CONVENCIONAL</span></label>
         </div>
       </div>
     </div>
@@ -614,8 +614,8 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
       <div class="form-group">
         <label class="form-label" data-i18n="shift">Turno</label>
         <select class="form-select" id="genTurno">
-          <option value="DIA">DIA</option>
-          <option value="NOCHE">NOCHE</option>
+          <option value="DIA" data-tv="DIA">DIA</option>
+          <option value="NOCHE" data-tv="NOCHE">NOCHE</option>
         </select>
       </div>
       <div class="form-group">
@@ -795,7 +795,7 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
       <span data-i18n="editPalet">Editar Palet</span> #<span id="modalPaletNum"></span>
     </div>
     <div class="form-row form-row-2">
-      <div class="form-group"><label class="form-label">Lote</label><input type="text" class="form-input" id="modLote"></div>
+      <div class="form-group"><label class="form-label" data-i18n="lot">Lote</label><input type="text" class="form-input" id="modLote"></div>
       <div class="form-group"><label class="form-label" data-i18n="traceCode">Cod. Trazabilidad</label><input type="text" class="form-input" id="modCodTraz"></div>
     </div>
     <div class="form-row form-row-3">
@@ -849,7 +849,7 @@ es:{
   scanTitle:'Escanear Codigo QR',startScan:'Iniciar Camara',stopScan:'Detener',scanHint:'Apunte la camara al codigo QR del paleticket',
   repTitle:'Reporte de Recepcion',supervisor:'Supervisor de Produccion',coordinator:'Coordinador de Operaciones',saveReport:'Guardar Reporte',printReport:'Imprimir / PDF',
   dashTitle:'Dashboard Analitico',filter:'Filtrar',chartProduct:'Ingreso por Producto',chartDaily:'Peso Neto Diario',chartType:'Tipo: Organico vs Convencional',chartSupplier:'Top Proveedores',dashTable:'Detalle de Viajes',
-  editPalet:'Editar Palet',traceCode:'Cod. Trazabilidad',transferDate:'Fecha Traslado',time:'Hora',ripDate:'F. Maduracion',crates:'N. Jabas',grossWeight:'Peso Bruto',palletWeight:'Peso Palet',netWeight:'Peso Neto',ripDest:'Madurez / Destino',observations:'Observaciones',cancel:'Cancelar',save:'Guardar',
+  editPalet:'Editar Palet',traceCode:'Cod. Trazabilidad',transferDate:'Fecha Traslado',time:'Hora',ripDate:'F. Maduracion',crates:'N. Jabas',grossWeight:'Peso Bruto',palletWeight:'Peso Palet',netWeight:'Peso Neto',ripDest:'Madurez / Destino',observations:'Observaciones',cancel:'Cancelar',save:'Guardar',lot:'Lote',themeToggle:'Cambiar tema',ptPreviewTitle:'Paletickets (Original + Copia)',
   loading:'Cargando...',noData:'Sin datos',status:'Estado',registered:'Registrado',pending:'Pendiente',printPT:'Imprimir Paletickets',total:'TOTALES',
   tripCreated:'Viaje creado exitosamente',paletSaved:'Palet guardado exitosamente',reportSaved:'Reporte guardado',errorGeneric:'Error en la operacion',
   scanFound:'Palet encontrado',scanNotFound:'Palet no encontrado',goToReg:'Ir a Registro',
@@ -869,7 +869,7 @@ nl:{
   scanTitle:'QR-code Scannen',startScan:'Camera Starten',stopScan:'Stoppen',scanHint:'Richt de camera op de QR-code van het palletticket',
   repTitle:'Ontvangstrapport',supervisor:'Productie Supervisor',coordinator:'Operatie Coördinator',saveReport:'Rapport Opslaan',printReport:'Afdrukken / PDF',
   dashTitle:'Analytisch Dashboard',filter:'Filteren',chartProduct:'Ontvangst per Product',chartDaily:'Dagelijks Netto Gewicht',chartType:'Type: Biologisch vs Conventioneel',chartSupplier:'Top Leveranciers',dashTable:'Ritdetails',
-  editPalet:'Pallet Bewerken',traceCode:'Traceerbaarheidscode',transferDate:'Overdrachtsdatum',time:'Tijd',ripDate:'Rijpingsdatum',crates:'Kratten',grossWeight:'Bruto Gewicht',palletWeight:'Pallet Gewicht',netWeight:'Netto Gewicht',ripDest:'Rijpheid / Bestemming',observations:'Opmerkingen',cancel:'Annuleren',save:'Opslaan',
+  editPalet:'Pallet Bewerken',traceCode:'Traceerbaarheidscode',transferDate:'Overdrachtsdatum',time:'Tijd',ripDate:'Rijpingsdatum',crates:'Kratten',grossWeight:'Bruto Gewicht',palletWeight:'Pallet Gewicht',netWeight:'Netto Gewicht',ripDest:'Rijpheid / Bestemming',observations:'Opmerkingen',cancel:'Annuleren',save:'Opslaan',lot:'Partij',themeToggle:'Thema wijzigen',ptPreviewTitle:'Pallettickets (Origineel + Kopie)',
   loading:'Laden...',noData:'Geen gegevens',status:'Status',registered:'Geregistreerd',pending:'In afwachting',printPT:'Pallettickets Afdrukken',total:'TOTALEN',
   tripCreated:'Rit succesvol aangemaakt',paletSaved:'Pallet succesvol opgeslagen',reportSaved:'Rapport opgeslagen',errorGeneric:'Fout bij bewerking',
   scanFound:'Pallet gevonden',scanNotFound:'Pallet niet gevonden',goToReg:'Ga naar Registratie',
@@ -889,7 +889,7 @@ pt:{
   scanTitle:'Escanear Codigo QR',startScan:'Iniciar Camera',stopScan:'Parar',scanHint:'Aponte a camera para o codigo QR do paleticket',
   repTitle:'Relatorio de Recepcao',supervisor:'Supervisor de Producao',coordinator:'Coordenador de Operacoes',saveReport:'Salvar Relatorio',printReport:'Imprimir / PDF',
   dashTitle:'Dashboard Analitico',filter:'Filtrar',chartProduct:'Entrada por Produto',chartDaily:'Peso Liquido Diario',chartType:'Tipo: Organico vs Convencional',chartSupplier:'Top Fornecedores',dashTable:'Detalhe de Viagens',
-  editPalet:'Editar Palete',traceCode:'Cod. Rastreabilidade',transferDate:'Data Transferencia',time:'Hora',ripDate:'Data Maturacao',crates:'Caixas',grossWeight:'Peso Bruto',palletWeight:'Peso Palete',netWeight:'Peso Liquido',ripDest:'Maturidade / Destino',observations:'Observacoes',cancel:'Cancelar',save:'Salvar',
+  editPalet:'Editar Palete',traceCode:'Cod. Rastreabilidade',transferDate:'Data Transferencia',time:'Hora',ripDate:'Data Maturacao',crates:'Caixas',grossWeight:'Peso Bruto',palletWeight:'Peso Palete',netWeight:'Peso Liquido',ripDest:'Maturidade / Destino',observations:'Observacoes',cancel:'Cancelar',save:'Salvar',lot:'Lote',themeToggle:'Alterar tema',ptPreviewTitle:'Paletickets (Original + Copia)',
   loading:'Carregando...',noData:'Sem dados',status:'Status',registered:'Registrado',pending:'Pendente',printPT:'Imprimir Paletickets',total:'TOTAIS',
   tripCreated:'Viagem criada com sucesso',paletSaved:'Palete salvo com sucesso',reportSaved:'Relatorio salvo',errorGeneric:'Erro na operacao',
   scanFound:'Palete encontrado',scanNotFound:'Palete nao encontrado',goToReg:'Ir ao Registro',
@@ -909,7 +909,7 @@ en:{
   scanTitle:'Scan QR Code',startScan:'Start Camera',stopScan:'Stop',scanHint:'Point the camera at the pallet ticket QR code',
   repTitle:'Reception Report',supervisor:'Production Supervisor',coordinator:'Operations Coordinator',saveReport:'Save Report',printReport:'Print / PDF',
   dashTitle:'Analytics Dashboard',filter:'Filter',chartProduct:'Intake by Product',chartDaily:'Daily Net Weight',chartType:'Type: Organic vs Conventional',chartSupplier:'Top Suppliers',dashTable:'Trip Details',
-  editPalet:'Edit Pallet',traceCode:'Traceability Code',transferDate:'Transfer Date',time:'Time',ripDate:'Ripening Date',crates:'Crates',grossWeight:'Gross Weight',palletWeight:'Pallet Weight',netWeight:'Net Weight',ripDest:'Ripeness / Destination',observations:'Observations',cancel:'Cancel',save:'Save',
+  editPalet:'Edit Pallet',traceCode:'Traceability Code',transferDate:'Transfer Date',time:'Time',ripDate:'Ripening Date',crates:'Crates',grossWeight:'Gross Weight',palletWeight:'Pallet Weight',netWeight:'Net Weight',ripDest:'Ripeness / Destination',observations:'Observations',cancel:'Cancel',save:'Save',lot:'Lot',themeToggle:'Toggle theme',ptPreviewTitle:'Pallet Tickets (Original + Copy)',
   loading:'Loading...',noData:'No data',status:'Status',registered:'Registered',pending:'Pending',printPT:'Print Pallet Tickets',total:'TOTALS',
   tripCreated:'Trip created successfully',paletSaved:'Pallet saved successfully',reportSaved:'Report saved',errorGeneric:'Operation error',
   scanFound:'Pallet found',scanNotFound:'Pallet not found',goToReg:'Go to Register',
@@ -929,7 +929,7 @@ ja:{
   scanTitle:'QRコードスキャン',startScan:'カメラ開始',stopScan:'停止',scanHint:'パレットチケットのQRコードにカメラを向けてください',
   repTitle:'受入レポート',supervisor:'生産監督者',coordinator:'オペレーションコーディネーター',saveReport:'レポート保存',printReport:'印刷 / PDF',
   dashTitle:'分析ダッシュボード',filter:'フィルター',chartProduct:'製品別入荷',chartDaily:'日別正味重量',chartType:'タイプ：有機 vs 慣行',chartSupplier:'トップサプライヤー',dashTable:'便詳細',
-  editPalet:'パレット編集',traceCode:'トレーサビリティコード',transferDate:'移送日',time:'時間',ripDate:'熟成日',crates:'クレート',grossWeight:'総重量',palletWeight:'パレット重量',netWeight:'正味重量',ripDest:'熟度/仕向地',observations:'備考',cancel:'キャンセル',save:'保存',
+  editPalet:'パレット編集',traceCode:'トレーサビリティコード',transferDate:'移送日',time:'時間',ripDate:'熟成日',crates:'クレート',grossWeight:'総重量',palletWeight:'パレット重量',netWeight:'正味重量',ripDest:'熟度/仕向地',observations:'備考',cancel:'キャンセル',save:'保存',lot:'ロット',themeToggle:'テーマ切替',ptPreviewTitle:'パレットチケット (原本+控)',
   loading:'読み込み中...',noData:'データなし',status:'ステータス',registered:'登録済',pending:'未登録',printPT:'パレットチケット印刷',total:'合計',
   tripCreated:'便が正常に作成されました',paletSaved:'パレットが正常に保存されました',reportSaved:'レポート保存済み',errorGeneric:'操作エラー',
   scanFound:'パレットが見つかりました',scanNotFound:'パレットが見つかりません',goToReg:'登録へ',
@@ -949,7 +949,7 @@ zh:{
   scanTitle:'扫描二维码',startScan:'启动相机',stopScan:'停止',scanHint:'将相机对准托盘票上的二维码',
   repTitle:'接收报告',supervisor:'生产主管',coordinator:'运营协调员',saveReport:'保存报告',printReport:'打印 / PDF',
   dashTitle:'分析仪表板',filter:'筛选',chartProduct:'按产品入库',chartDaily:'每日净重',chartType:'类型：有机 vs 常规',chartSupplier:'顶级供应商',dashTable:'行程详情',
-  editPalet:'编辑托盘',traceCode:'追溯代码',transferDate:'转移日期',time:'时间',ripDate:'成熟日期',crates:'箱数',grossWeight:'毛重',palletWeight:'托盘重',netWeight:'净重',ripDest:'成熟度/目的地',observations:'备注',cancel:'取消',save:'保存',
+  editPalet:'编辑托盘',traceCode:'追溯代码',transferDate:'转移日期',time:'时间',ripDate:'成熟日期',crates:'箱数',grossWeight:'毛重',palletWeight:'托盘重',netWeight:'净重',ripDest:'成熟度/目的地',observations:'备注',cancel:'取消',save:'保存',lot:'批号',themeToggle:'切换主题',ptPreviewTitle:'托盘票 (正本+副本)',
   loading:'加载中...',noData:'无数据',status:'状态',registered:'已登记',pending:'待处理',printPT:'打印托盘票',total:'合计',
   tripCreated:'行程创建成功',paletSaved:'托盘保存成功',reportSaved:'报告已保存',errorGeneric:'操作错误',
   scanFound:'找到托盘',scanNotFound:'未找到托盘',goToReg:'前往登记',
@@ -971,6 +971,14 @@ function applyI18n(){
   });
   document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
     el.placeholder = t(el.getAttribute('data-i18n-ph'));
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(el=>{
+    el.title = t(el.getAttribute('data-i18n-title'));
+  });
+  // Translate category values (product/type/shift codes) for radio buttons, selects, etc.
+  document.querySelectorAll('[data-tv]').forEach(el=>{
+    const code = el.getAttribute('data-tv');
+    el.textContent = tv(code);
   });
 }
 
@@ -1053,7 +1061,7 @@ function formatNum(n){return n!=null?Number(n).toLocaleString('es-PE',{minimumFr
 function formatDate(d){if(!d)return'-';const p=new Date(d+'T12:00:00');return p.toLocaleDateString('es-PE');}
 function today(){return new Date().toISOString().split('T')[0];}
 function prodColor(p){return p==='MANGO'?'orange':p==='PALTA'?'green':p==='FRESA'?'red':'blue';}
-function prodBadge(p){return `<span class="badge badge-${prodColor(p)}">${p}</span>`;}
+function prodBadge(p){return `<span class="badge badge-${prodColor(p)}">${tv(p).toUpperCase()}</span>`;}
 
 // ============================================================
 //  SUPABASE API
@@ -1408,7 +1416,7 @@ function renderPaleticketPreview(viaje, cantidad){
   let html = `
     <div class="card" style="margin-bottom:16px">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
-        <div class="card-title">${prodBadge(viaje.producto)} ${t('tripNum')} ${viaje.numero_viaje} — ${cantidad} Paletickets (Original + Copia)</div>
+        <div class="card-title">${prodBadge(viaje.producto)} ${t('tripNum')} ${viaje.numero_viaje} — ${cantidad} ${t('ptPreviewTitle')}</div>
         <button class="btn btn-primary" onclick="printPaletickets()" data-i18n="printPT">${t('printPT')}</button>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(480px,1fr));gap:12px">
@@ -1504,7 +1512,7 @@ async function loadPaletsForViaje(){
     // Table
     let html = `<div class="card"><div class="table-wrap"><table class="table">
       <thead><tr>
-        <th>N.</th><th>Lote</th><th>${t('traceCode')}</th><th>${t('time')}</th>
+        <th>N.</th><th>${t('lot')}</th><th>${t('traceCode')}</th><th>${t('time')}</th>
         <th>${t('crates')}</th><th>${t('grossWeight')}</th><th>${t('palletWeight')}</th><th>${t('netWeight')}</th>
         <th>${t('ripDest')}</th><th>${t('status')}</th><th></th>
       </tr></thead><tbody>`;
@@ -1714,7 +1722,7 @@ function renderScanResult(){
         <div class="scan-field"><span class="scan-label">${t('entryDate')}</span><span class="scan-value">${formatDate(v.fecha_ingreso)}</span></div>
         <div class="scan-field"><span class="scan-label">${t('shift')}</span><span class="scan-value">${tv(v.turno)}</span></div>
         <div class="scan-field"><span class="scan-label">${t('julianDate')}</span><span class="scan-value">${v.juliano_ingreso||'-'}</span></div>
-        <div class="scan-field"><span class="scan-label">Lote</span><span class="scan-value">${p.lote||'-'}</span></div>
+        <div class="scan-field"><span class="scan-label">${t('lot')}</span><span class="scan-value">${p.lote||'-'}</span></div>
         <div class="scan-field"><span class="scan-label">${t('traceCode')}</span><span class="scan-value">${p.codigo_trazabilidad||'-'}</span></div>
         <div class="scan-field"><span class="scan-label">${t('crates')}</span><span class="scan-value">${p.num_jabas||'-'}</span></div>
         <div class="scan-field"><span class="scan-label">${t('grossWeight')}</span><span class="scan-value">${p.peso_bruto?formatNum(p.peso_bruto)+' kg':'-'}</span></div>
